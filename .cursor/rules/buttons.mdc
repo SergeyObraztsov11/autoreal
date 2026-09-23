@@ -1,0 +1,28 @@
+---
+description: Button components — Callback / Call / Route / Nav
+globs: app/**/*.vue
+alwaysApply: false
+---
+
+# Buttons
+
+Do not hand-roll repeated CTA labels/icons. Use the typed wrappers:
+
+| Component | When | Label | Icon |
+|---|---|---|---|
+| `CallbackButton` | Opens request modal | Обратный звонок | `phone-call` (start) |
+| `CallButton` | `tel:` call | Позвонить | `phone` (start) |
+| `RouteButton` | Yandex directions | Маршрут | `navigation` (start) |
+| `NavButton` | In-app `to="..."` | slot text | `arrow-right` (end) |
+
+- `AppButton` is the primitive (variants, link/button). Prefer wrappers above for site CTAs.
+- Call on mobile only when a «Позвонить» button is used: wrap in `<div class="lg:hidden">` (see phone-display rule).
+- Form actions inside `RequestModal` stay as `AppButton` with `send` / `check` icons.
+- Icon-only controls (`MobileCallButton`, header phone tile) are exceptions.
+
+```vue
+<CallbackButton />
+<CallButton :number="phones.service" />
+<RouteButton :location="loc" />
+<NavButton to="/service" variant="ghost">Все услуги</NavButton>
+```

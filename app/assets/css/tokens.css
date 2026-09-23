@@ -1,0 +1,343 @@
+/* Autoreal design system — derived from the logo:
+   yellow #fce700 + black + white, forward slant, hard black extrusion */
+
+:root {
+  --g-yellow: #fce700;
+  --g-yellow-deep: #e6d100;
+  --g-ink: #0a0a0a;
+  --g-ink-2: #1c1c1c;
+  --g-muted: #5f5f5f;
+  --g-bg: #f4f4f2;
+  --g-line: #e2e2df;
+  --g-skew: -12deg;
+
+  --font-display: 'Onest', system-ui, sans-serif;
+  --font-body: 'Golos Text', system-ui, sans-serif;
+}
+
+html {
+  font-family: var(--font-body);
+  color: var(--g-ink);
+  background: var(--g-bg);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Semantic color utilities — same tokens as tailwind.config.ts */
+.bg-yellow {
+  background-color: var(--g-yellow);
+}
+.bg-ink {
+  background-color: var(--g-ink);
+}
+.bg-ink-2 {
+  background-color: var(--g-ink-2);
+}
+.bg-canvas {
+  background-color: var(--g-bg);
+}
+.text-yellow {
+  color: var(--g-yellow);
+}
+.text-ink {
+  color: var(--g-ink);
+}
+.text-ink\/70 {
+  color: color-mix(in srgb, var(--g-ink) 70%, transparent);
+}
+.text-muted {
+  color: var(--g-muted);
+}
+.border-yellow {
+  border-color: var(--g-yellow);
+}
+.border-t-yellow {
+  border-top-color: var(--g-yellow);
+}
+.border-ink {
+  border-color: var(--g-ink);
+}
+.border-line {
+  border-color: var(--g-line);
+}
+.decoration-yellow {
+  text-decoration-color: var(--g-yellow);
+}
+.shadow-hard {
+  box-shadow: 5px 5px 0 var(--g-ink);
+}
+.shadow-hard-sm {
+  box-shadow: 3px 3px 0 var(--g-ink);
+}
+.shadow-hard-md {
+  box-shadow: 4px 4px 0 var(--g-ink);
+}
+.shadow-hard-yellow {
+  box-shadow: 5px 5px 0 var(--g-yellow);
+}
+.shadow-hard-yellow-sm {
+  box-shadow: 3px 3px 0 var(--g-yellow);
+}
+.shadow-hard-yellow-md {
+  box-shadow: 4px 4px 0 var(--g-yellow);
+}
+
+.g-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+/* Phone numbers: tabular digits, never wrap */
+.phone {
+  font-family: var(--font-body) !important;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings:
+    'tnum' 1,
+    'lnum' 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Shapes — slant matches the logo italic */
+.g-para {
+  clip-path: polygon(28% 0, 100% 0, 72% 100%, 0 100%);
+}
+.g-para-wide {
+  clip-path: polygon(20% 0, 100% 0, 80% 100%, 0 100%);
+}
+.g-para-r {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 26% 100%);
+}
+.g-para-l {
+  clip-path: polygon(0 0, 74% 0, 100% 100%, 0 100%);
+}
+.g-chevron {
+  clip-path: polygon(0 0, 62% 0, 100% 50%, 62% 100%, 0 100%, 38% 50%);
+}
+.g-tri-tl {
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.g-tri-br {
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+.g-tri-tr {
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+.g-tri-bl {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+
+/* Mobile compositions (< lg) */
+.g-photo-cut {
+  /* full-bleed photo, bottom edge slopes up to the right */
+  clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
+}
+.g-photo-slant {
+  /* wide photo band, right edge slanted */
+  clip-path: polygon(0 0, 100% 0, 91% 100%, 0 100%);
+}
+@media (max-width: 1023px) {
+  .g-cut-top-r {
+    clip-path: polygon(0 0, 100% 2.5rem, 100% 100%, 0 100%);
+  }
+  .g-cut-top-l {
+    clip-path: polygon(0 2.5rem, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Hard black extrusion like the logo */
+.g-hard {
+  box-shadow: 5px 5px 0 var(--g-ink);
+}
+.g-hard-sm {
+  box-shadow: 3px 3px 0 var(--g-ink);
+}
+
+/* Card: white, black frame, hard shadow */
+.g-card {
+  border: 2px solid var(--g-ink);
+  background: #fff;
+  box-shadow: 5px 5px 0 var(--g-ink);
+}
+
+/* Buttons */
+.g-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  padding: 0.8rem 1.35rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  border: 2px solid var(--g-ink);
+  box-shadow: 4px 4px 0 var(--g-ink);
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    background-color 0.15s;
+  cursor: pointer;
+}
+.g-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--g-ink);
+}
+.g-btn:focus-visible {
+  outline: 2px solid var(--g-ink);
+  outline-offset: 3px;
+}
+/* Mobile: comfortable tap targets */
+@media (max-width: 767px) {
+  .g-btn {
+    min-height: 3.25rem;
+    padding: 0.9rem 1.4rem;
+    font-size: 0.95rem;
+  }
+}
+.g-btn-primary {
+  background: var(--g-yellow);
+  color: var(--g-ink);
+}
+.g-btn-primary:hover {
+  background: var(--g-yellow-deep);
+}
+.g-btn-ghost {
+  background: #fff;
+  color: var(--g-ink);
+}
+.g-btn-dark {
+  background: var(--g-ink);
+  color: var(--g-yellow);
+  border-color: var(--g-yellow);
+  box-shadow: 4px 4px 0 var(--g-yellow);
+}
+.g-btn-dark:hover {
+  box-shadow: 2px 2px 0 var(--g-yellow);
+}
+
+/* Icon tile — black block with yellow glyph */
+.g-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  background: var(--g-ink);
+  color: var(--g-yellow);
+  flex-shrink: 0;
+}
+.g-tile-yellow {
+  background: var(--g-yellow);
+  color: var(--g-ink);
+}
+
+/* Section label */
+.g-label {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--g-muted);
+}
+.g-label.text-yellow {
+  color: var(--g-yellow);
+}
+
+/* Compact uppercase kicker (cards, footer, dl titles) */
+.g-kicker {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--g-muted);
+}
+.g-kicker.text-yellow {
+  color: var(--g-yellow);
+}
+
+/* Page content width */
+.g-container {
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1rem;
+}
+@media (min-width: 768px) {
+  .g-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Yellow underline accent (color comes from context) */
+.g-link-accent {
+  text-decoration-color: var(--g-yellow);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
+}
+.g-link-accent:hover {
+  text-decoration-line: underline;
+}
+
+/* Headline: bold display; accents = heavier italic on a slanted yellow plate */
+.g-h {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  line-height: 1.08;
+  isolation: isolate;
+}
+.g-h b {
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  font-style: italic;
+  padding: 0 0.12em;
+  color: var(--g-ink);
+}
+.g-h b::before {
+  content: '';
+  position: absolute;
+  inset: 0.1em -0.1em 0.02em;
+  background: var(--g-yellow);
+  transform: skew(var(--g-skew));
+  z-index: -1;
+}
+.g-h.on-dark {
+  color: #fff;
+}
+.g-h.on-dark b {
+  color: var(--g-yellow);
+  padding: 0;
+}
+.g-h.on-dark b::before {
+  display: none;
+}
+.g-h.on-yellow b {
+  color: var(--g-yellow);
+}
+.g-h.on-yellow b::before {
+  background: var(--g-ink);
+}
+
+/* Form fields */
+.g-input {
+  width: 100%;
+  border: 2px solid var(--g-ink);
+  background: #fff;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: box-shadow 0.15s;
+}
+.g-input:focus {
+  box-shadow: 3px 3px 0 var(--g-yellow);
+}
+/* Mobile: finger-sized fields, 16px prevents iOS zoom on focus */
+@media (max-width: 767px) {
+  .g-input {
+    min-height: 3rem;
+    padding: 0.8rem 0.95rem;
+    font-size: 1rem;
+  }
+}

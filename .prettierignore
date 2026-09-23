@@ -1,0 +1,17 @@
+# Nuxt / build
+.nuxt
+.output
+.data
+.nitro
+.cache
+dist
+
+# Dependencies
+node_modules
+
+# Lockfiles
+package-lock.json
+
+# Misc
+*.log
+.DS_Store

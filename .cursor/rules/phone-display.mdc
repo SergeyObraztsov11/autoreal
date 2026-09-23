@@ -1,0 +1,28 @@
+---
+description: Phone numbers — plain text on desktop, call on mobile
+globs: app/**/*.{vue,ts}
+alwaysApply: false
+---
+
+# Phone display
+
+Breakpoint: `lg` (same as header desktop/mobile split).
+
+## Rules
+
+- **Desktop (`lg+`)**: phone is plain text, not a `tel:` link.
+- **Mobile (`< lg`)**: either a tappable number (`PhoneLink`) **or** a `CallButton` — not both in the same place.
+
+## How
+
+- Use `PhoneLink` for numbers. It renders `tel:` below `lg` and a `<span>` from `lg` up.
+- Where a call button is used on mobile, wrap `CallButton` in `<div class="lg:hidden">` (do not put `lg:hidden` on `AppButton` — `.g-btn { display }` overrides it). Hide the desktop number with `max-lg:hidden` on `PhoneLink`.
+- Footer / legal blocks may keep static text (already non-clickable).
+
+```vue
+<CallbackButton />
+<PhoneLink :number="phones.service" class="font-bold max-lg:hidden" />
+<div class="lg:hidden">
+  <CallButton :number="phones.service" />
+</div>
+```
