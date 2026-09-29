@@ -12,10 +12,7 @@ const points = [
   <section id="akpp" class="relative scroll-mt-20 bg-white">
     <SectionSplit>
       <p class="g-label">АКПП</p>
-      <h2 class="g-h g-h2">
-        Аппаратная замена масла
-        в&nbsp;АКПП — <b>в день записи</b>
-      </h2>
+      <h2 class="g-h g-h2">Аппаратная замена масла в&nbsp;АКПП — <b>в день записи</b></h2>
 
       <p class="g-lead mt-5">
         Полная замена ATF через аппарат. При необходимости — промывка системы и замена фильтра.
@@ -28,7 +25,7 @@ const points = [
           alt=""
           class="mx-auto block w-full max-h-44 object-contain object-center lg:max-h-[32rem]"
           loading="lazy"
-        >
+        />
       </template>
 
       <template #body>

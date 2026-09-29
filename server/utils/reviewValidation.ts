@@ -32,8 +32,8 @@ export function parseReviewBody(body: ReviewBody | null | undefined): ValidRevie
   const author = body?.name?.trim() ?? ''
   const text = body?.text?.trim() ?? ''
   const ratingRaw = body?.rating
-  const rating
-    = typeof ratingRaw === 'number'
+  const rating =
+    typeof ratingRaw === 'number'
       ? ratingRaw
       : typeof ratingRaw === 'string'
         ? Number(ratingRaw)
@@ -54,8 +54,7 @@ export function parseReviewBody(body: ReviewBody | null | undefined): ValidRevie
       field: 'text',
       message: `Напишите отзыв — минимум ${TEXT_MIN} символов`,
     })
-  }
-  else if (text.length > TEXT_MAX) {
+  } else if (text.length > TEXT_MAX) {
     details.push({
       field: 'text',
       message: `Отзыв слишком длинный — максимум ${TEXT_MAX} символов`,

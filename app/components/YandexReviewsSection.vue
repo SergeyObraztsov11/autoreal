@@ -13,9 +13,7 @@ const desktopReviews = computed(() =>
   showAllDesktop.value ? reviews : reviews.slice(0, DESKTOP_PREVIEW),
 )
 
-const hasMoreDesktop = computed(
-  () => !showAllDesktop.value && reviews.length > DESKTOP_PREVIEW,
-)
+const hasMoreDesktop = computed(() => !showAllDesktop.value && reviews.length > DESKTOP_PREVIEW)
 
 function measureCollapsedHeight() {
   nextTick(async () => {
@@ -23,9 +21,7 @@ function measureCollapsedHeight() {
     const root = sectionEl.value
     if (!root) return
 
-    const cards = [
-      ...root.querySelectorAll<HTMLElement>('[data-review-card]'),
-    ].filter(el => {
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-review-card]')].filter(el => {
       const id = el.dataset.reviewCard
       return Boolean(id) && el.offsetParent !== null && !expanded.value[id!]
     })
@@ -65,17 +61,10 @@ onBeforeUnmount(() => {
     <div class="g-container g-section">
       <div class="mb-5 max-w-2xl md:mb-6 lg:mb-8">
         <p class="g-label">Отзывы</p>
-        <h2 class="g-h g-h2">
-          Отзывы наших клиентов
-        </h2>
+        <h2 class="g-h g-h2">Отзывы наших клиентов</h2>
       </div>
 
-      <SnapSwiper
-        mobile-only
-        :items="reviews"
-        label="Отзывы клиентов"
-        :item-key="(item) => item.id"
-      >
+      <SnapSwiper mobile-only :items="reviews" label="Отзывы клиентов" :item-key="item => item.id">
         <template #default="{ item, index }">
           <ReviewCard
             :item="item"

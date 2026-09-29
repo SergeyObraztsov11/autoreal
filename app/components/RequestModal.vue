@@ -69,13 +69,11 @@ async function onSubmit() {
       },
     })
     sent.value = true
-  }
-  catch (err) {
+  } catch (err) {
     const parsed = parseApiError(err)
     fieldErrors.value = parsed.fieldErrors
     error.value = bannerMessageForApiError(parsed)
-  }
-  finally {
+  } finally {
     submitting.value = false
   }
 }
@@ -105,21 +103,19 @@ function onKeydown(e: KeyboardEvent) {
   if (e.shiftKey && document.activeElement === first) {
     e.preventDefault()
     last.focus()
-  }
-  else if (!e.shiftKey && document.activeElement === last) {
+  } else if (!e.shiftKey && document.activeElement === last) {
     e.preventDefault()
     first.focus()
   }
 }
 
-watch(open, async (v) => {
+watch(open, async v => {
   if (v) {
     opener = document.activeElement as HTMLElement | null
     document.addEventListener('keydown', onKeydown)
     await nextTick()
     nameInput.value?.focus()
-  }
-  else {
+  } else {
     document.removeEventListener('keydown', onKeydown)
     sent.value = false
     submitting.value = false
@@ -155,9 +151,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
             <h2 id="request-modal-title" class="g-display text-xl font-bold sm:text-2xl">
               {{ title }}
             </h2>
-            <p class="mt-1 text-sm text-muted">
-              Специалист свяжется с вами в течение 15 минут
-            </p>
+            <p class="mt-1 text-sm text-muted">Специалист свяжется с вами в течение 15 минут</p>
           </div>
           <button
             type="button"
@@ -183,7 +177,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
               :class="fieldErrors.name ? 'border-red-600' : ''"
               placeholder="Как к вам обращаться"
               @input="clearFieldError('name')"
-            >
+            />
             <p v-if="fieldErrors.name" class="mt-1.5 text-sm text-red-600">
               {{ fieldErrors.name }}
             </p>
@@ -202,7 +196,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
               :class="fieldErrors.phone ? 'border-red-600' : ''"
               placeholder="+7 (___) ___-__-__"
               @input="onPhoneInput"
-            >
+            />
             <p v-if="fieldErrors.phone" class="mt-1.5 text-sm text-red-600">
               {{ fieldErrors.phone }}
             </p>
@@ -218,7 +212,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
                 name="website"
                 tabindex="-1"
                 autocomplete="off"
-              >
+              />
             </label>
           </div>
 
@@ -242,12 +236,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
         </form>
 
         <div v-else class="py-2">
-          <p class="g-display text-xl font-bold">
-            Заявка принята
-          </p>
-          <p class="mt-2 text-sm text-muted">
-            Мы скоро перезвоним.
-          </p>
+          <p class="g-display text-xl font-bold">Заявка принята</p>
+          <p class="mt-2 text-sm text-muted">Мы скоро перезвоним.</p>
           <AppButton class="mt-6 w-full sm:w-auto" variant="ghost" @click="hide">
             <Icon name="lucide:check" class="size-4" />
             Закрыть

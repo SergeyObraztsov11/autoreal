@@ -11,9 +11,7 @@ import { vkGroup } from '~/data/site'
     <div class="g-container g-section">
       <div class="mb-5 max-w-2xl md:mb-6 lg:mb-8">
         <p class="g-label">Сообщество</p>
-        <h2 class="g-h g-h2">
-          Мы во <b>ВКонтакте</b>
-        </h2>
+        <h2 class="g-h g-h2">Мы во <b>ВКонтакте</b></h2>
       </div>
 
       <!-- Mobile -->
@@ -60,12 +58,8 @@ import { vkGroup } from '~/data/site'
               <Icon name="lucide:megaphone" class="size-5" />
             </span>
             <div>
-              <p class="g-kicker">
-                Официальное сообщество
-              </p>
-              <p class="g-display mt-0.5 text-2xl font-bold">
-                «Автореал» во ВКонтакте
-              </p>
+              <p class="g-kicker">Официальное сообщество</p>
+              <p class="g-display mt-0.5 text-2xl font-bold">«Автореал» во ВКонтакте</p>
             </div>
           </div>
 

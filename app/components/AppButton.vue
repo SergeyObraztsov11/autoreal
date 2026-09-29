@@ -42,13 +42,7 @@ const linkRel = computed(
 </script>
 
 <template>
-  <NuxtLink
-    v-if="to"
-    v-bind="restAttrs"
-    :to="to"
-    class="g-btn"
-    :class="[variantClass, extraClass]"
-  >
+  <NuxtLink v-if="to" v-bind="restAttrs" :to="to" class="g-btn" :class="[variantClass, extraClass]">
     <slot />
   </NuxtLink>
   <a

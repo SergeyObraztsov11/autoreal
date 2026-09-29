@@ -39,9 +39,7 @@ const year = new Date().getFullYear()
         class="g-container flex flex-wrap items-center gap-x-4 gap-y-2 py-4 pr-24 text-sm text-white/80 lg:pr-6"
       >
         <p>© {{ year }} {{ brand.legalName }}</p>
-        <NuxtLink to="/privacy" class="underline underline-offset-2">
-          Политика ПДн
-        </NuxtLink>
+        <NuxtLink to="/privacy" class="underline underline-offset-2"> Политика ПДн </NuxtLink>
         <LegalRequisites variant="compact" />
         <p>
           Сведения, размещённые на сайте, носят информационный характер и не являются публичной

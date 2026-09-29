@@ -25,8 +25,7 @@ const props = withDefaults(
     itemKey: undefined,
     mobileOnly: false,
     forceCarousel: false,
-    slideClass:
-      'w-[min(19.5rem,calc(100vw-3rem))] md:w-[21rem]',
+    slideClass: 'w-[min(19.5rem,calc(100vw-3rem))] md:w-[21rem]',
   },
 )
 
@@ -42,9 +41,7 @@ function keyOf(item: T, index: number) {
   return index
 }
 
-const showDesktopGrid = computed(
-  () => !props.mobileOnly && !props.forceCarousel,
-)
+const showDesktopGrid = computed(() => !props.mobileOnly && !props.forceCarousel)
 </script>
 
 <template>
@@ -78,10 +75,7 @@ const showDesktopGrid = computed(
             768: { spaceBetween: 16 },
           }"
         >
-          <SwiperSlide
-            v-for="(item, i) in items"
-            :key="keyOf(item, i)"
-          >
+          <SwiperSlide v-for="(item, i) in items" :key="keyOf(item, i)">
             <div class="flex h-full" :class="slideClass">
               <slot :item="item" :index="i" />
             </div>
@@ -103,17 +97,8 @@ const showDesktopGrid = computed(
       </ClientOnly>
     </div>
 
-    <div
-      v-if="showDesktopGrid"
-      class="hidden lg:grid"
-      :class="gridClass"
-    >
-      <slot
-        v-for="(item, i) in items"
-        :key="keyOf(item, i)"
-        :item="item"
-        :index="i"
-      />
+    <div v-if="showDesktopGrid" class="hidden lg:grid" :class="gridClass">
+      <slot v-for="(item, i) in items" :key="keyOf(item, i)" :item="item" :index="i" />
     </div>
   </div>
 </template>

@@ -44,8 +44,7 @@ function validateClient(): boolean {
   }
   if (!trimmedText || trimmedText.length < TEXT_MIN) {
     next.text = `Напишите отзыв — минимум ${TEXT_MIN} символов`
-  }
-  else if (trimmedText.length > TEXT_MAX) {
+  } else if (trimmedText.length > TEXT_MAX) {
     next.text = `Отзыв слишком длинный — максимум ${TEXT_MAX} символов`
   }
 
@@ -70,8 +69,7 @@ async function onSubmit() {
       },
     })
     sent.value = true
-  }
-  catch (err) {
+  } catch (err) {
     const parsed = parseApiError(err)
     fieldErrors.value = {
       name: parsed.fieldErrors.name,
@@ -79,8 +77,7 @@ async function onSubmit() {
       text: parsed.fieldErrors.text,
     }
     error.value = bannerMessageForApiError(parsed)
-  }
-  finally {
+  } finally {
     submitting.value = false
   }
 }
@@ -110,21 +107,19 @@ function onKeydown(e: KeyboardEvent) {
   if (e.shiftKey && document.activeElement === first) {
     e.preventDefault()
     last.focus()
-  }
-  else if (!e.shiftKey && document.activeElement === last) {
+  } else if (!e.shiftKey && document.activeElement === last) {
     e.preventDefault()
     first.focus()
   }
 }
 
-watch(open, async (v) => {
+watch(open, async v => {
   if (v) {
     opener = document.activeElement as HTMLElement | null
     document.addEventListener('keydown', onKeydown)
     await nextTick()
     nameInput.value?.focus()
-  }
-  else {
+  } else {
     document.removeEventListener('keydown', onKeydown)
     sent.value = false
     submitting.value = false
@@ -160,9 +155,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
             <h2 id="review-modal-title" class="g-display text-xl font-bold sm:text-2xl">
               Написать отзыв
             </h2>
-            <p class="mt-1 text-sm text-muted">
-              Нам важно ваше мнение о сервисе и магазине
-            </p>
+            <p class="mt-1 text-sm text-muted">Нам важно ваше мнение о сервисе и магазине</p>
           </div>
           <button
             type="button"
@@ -188,20 +181,15 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
               :class="fieldErrors.name ? 'border-red-600' : ''"
               placeholder="Как вас представить"
               @input="clearFieldError('name')"
-            >
+            />
             <p v-if="fieldErrors.name" class="mt-1.5 text-sm text-red-600">
               {{ fieldErrors.name }}
             </p>
           </label>
 
           <fieldset>
-            <legend class="mb-1.5 block text-sm font-semibold">
-              Оценка
-            </legend>
-            <div
-              class="flex items-center gap-1"
-              :aria-label="`Оценка ${rating} из 5`"
-            >
+            <legend class="mb-1.5 block text-sm font-semibold">Оценка</legend>
+            <div class="flex items-center gap-1" :aria-label="`Оценка ${rating} из 5`">
               <button
                 v-for="n in 5"
                 :key="n"
@@ -209,7 +197,10 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
                 class="rounded p-1 transition-transform hover:scale-110"
                 :aria-label="`${n} из 5`"
                 :aria-pressed="rating === n"
-                @click="rating = n; clearFieldError('rating')"
+                @click="
+                  rating = n
+                  clearFieldError('rating')
+                "
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -248,9 +239,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
               <p v-if="fieldErrors.text" class="text-sm text-red-600">
                 {{ fieldErrors.text }}
               </p>
-              <p class="ml-auto text-xs text-muted">
-                {{ text.trim().length }}/{{ TEXT_MAX }}
-              </p>
+              <p class="ml-auto text-xs text-muted">{{ text.trim().length }}/{{ TEXT_MAX }}</p>
             </div>
           </label>
 
@@ -263,7 +252,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
                 name="website"
                 tabindex="-1"
                 autocomplete="off"
-              >
+              />
             </label>
           </div>
 
@@ -287,12 +276,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
         </form>
 
         <div v-else class="py-2">
-          <p class="g-display text-xl font-bold">
-            Спасибо за отзыв
-          </p>
-          <p class="mt-2 text-sm text-muted">
-            Спасибо — для нас важно слышать клиентов.
-          </p>
+          <p class="g-display text-xl font-bold">Спасибо за отзыв</p>
+          <p class="mt-2 text-sm text-muted">Спасибо — для нас важно слышать клиентов.</p>
           <AppButton class="mt-6 w-full sm:w-auto" variant="ghost" @click="hide">
             <Icon name="lucide:check" class="size-4" />
             Закрыть

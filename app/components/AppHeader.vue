@@ -35,11 +35,7 @@ function isActive(to: string) {
     While the menu is open, pin the header with fixed and keep a spacer
     of the same height so the page does not shift.
   -->
-  <div
-    v-if="menuOpen"
-    aria-hidden="true"
-    :style="{ height: `${headerHeight}px` }"
-  />
+  <div v-if="menuOpen" aria-hidden="true" :style="{ height: `${headerHeight}px` }" />
   <header
     ref="headerEl"
     class="border-b-2 border-ink bg-white"
@@ -89,10 +85,7 @@ function isActive(to: string) {
 
   <Teleport to="body">
     <Transition name="drawer">
-      <div
-        v-if="menuOpen"
-        class="fixed inset-0 z-50 lg:hidden"
-      >
+      <div v-if="menuOpen" class="fixed inset-0 z-50 lg:hidden">
         <button
           type="button"
           class="drawer-backdrop absolute inset-0 bg-ink/45"
@@ -113,7 +106,8 @@ function isActive(to: string) {
               <span
                 class="decoration-yellow decoration-[3px] underline-offset-[6px]"
                 :class="isActive(item.to) ? 'underline' : ''"
-              >{{ item.label }}</span>
+                >{{ item.label }}</span
+              >
               <Icon
                 name="lucide:arrow-right"
                 class="size-5"

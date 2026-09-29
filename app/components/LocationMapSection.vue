@@ -41,7 +41,7 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
             height="18"
             class="block size-[18px] shrink-0"
             decoding="async"
-          >
+          />
           <span>Яндекс&nbsp;Карты</span>
         </a>
       </div>
@@ -144,15 +144,12 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
               height="18"
               class="block size-[18px] shrink-0"
               decoding="async"
-            >
+            />
             <span>Яндекс&nbsp;Карты</span>
           </a>
         </div>
 
-        <div
-          class="bg-canvas lg:h-[var(--map-h)]"
-          :style="{ '--map-h': height }"
-        >
+        <div class="bg-canvas lg:h-[var(--map-h)]" :style="{ '--map-h': height }">
           <ClientOnly>
             <iframe
               :src="src"

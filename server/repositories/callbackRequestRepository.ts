@@ -34,8 +34,7 @@ async function ensureFile() {
   await mkdir(dataDir, { recursive: true })
   try {
     await readFile(filePath, 'utf8')
-  }
-  catch (error) {
+  } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
       await writeFile(filePath, '[]\n', 'utf8')
       return

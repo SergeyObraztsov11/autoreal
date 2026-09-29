@@ -25,18 +25,11 @@ const mobileClass = computed(() => [
 
 <template>
   <!-- Mobile / tablet: tappable tel link -->
-  <a
-    :href="href"
-    class="phone lg:hidden"
-    :class="mobileClass"
-  >
+  <a :href="href" class="phone lg:hidden" :class="mobileClass">
     {{ display }}
   </a>
   <!-- Desktop: plain text, not a link -->
-  <span
-    class="phone hidden lg:inline"
-    :class="attrs.class"
-  >
+  <span class="phone hidden lg:inline" :class="attrs.class">
     {{ display }}
   </span>
 </template>

@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  formatReviewDate,
-  reviewInitials,
-  type Review,
-} from '~/data/reviews'
+import { formatReviewDate, reviewInitials, type Review } from '~/data/reviews'
 import { getLocation, yandexReviewsUrl } from '~/data/site'
 
 const props = defineProps<{
@@ -55,8 +51,7 @@ function measure() {
 
   if (props.expanded || !needsToggle.value) {
     maxHeight.value = `${full}px`
-  }
-  else {
+  } else {
     maxHeight.value = `${collapsed}px`
   }
 }
@@ -90,7 +85,7 @@ async function applyExpanded(isOpen: boolean) {
 
 watch(
   () => props.expanded,
-  (isOpen) => {
+  isOpen => {
     applyExpanded(isOpen)
   },
 )
@@ -130,10 +125,7 @@ onBeforeUnmount(() => {
           {{ item.author }}
         </p>
         <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-          <div
-            class="flex items-center gap-0.5"
-            :aria-label="`Оценка ${item.rating} из 5`"
-          >
+          <div class="flex items-center gap-0.5" :aria-label="`Оценка ${item.rating} из 5`">
             <svg
               v-for="n in 5"
               :key="n"
@@ -191,7 +183,7 @@ onBeforeUnmount(() => {
           height="18"
           class="block size-[18px] shrink-0"
           decoding="async"
-        >
+        />
         <span>Яндекс&nbsp;Карты</span>
       </a>
     </div>

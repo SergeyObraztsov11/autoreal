@@ -21,9 +21,7 @@ const props = withDefaults(
 )
 
 const frameBorder = computed(() => (props.tone === 'dark' ? 'border-yellow' : 'border-ink'))
-const frameShadow = computed(() =>
-  props.tone === 'dark' ? 'shadow-hard-yellow' : 'shadow-hard',
-)
+const frameShadow = computed(() => (props.tone === 'dark' ? 'shadow-hard-yellow' : 'shadow-hard'))
 </script>
 
 <template>

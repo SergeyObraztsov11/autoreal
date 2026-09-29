@@ -24,10 +24,7 @@ useSeoMeta({
       </template>
       <template #actions>
         <CallbackButton />
-        <PhoneLink
-          :number="phones.storeTollFree"
-          class="text-sm font-bold max-lg:hidden"
-        />
+        <PhoneLink :number="phones.storeTollFree" class="text-sm font-bold max-lg:hidden" />
         <div class="lg:hidden">
           <CallButton :number="phones.storeTollFree" />
         </div>

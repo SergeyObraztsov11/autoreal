@@ -5,11 +5,7 @@
 import type { H3Event } from 'h3'
 import { loggerFor } from '../utils/logger'
 import { assertRequestRateLimit } from '../utils/rateLimit'
-import {
-  isReviewHoneypotFilled,
-  parseReviewBody,
-  type ReviewBody,
-} from '../utils/reviewValidation'
+import { isReviewHoneypotFilled, parseReviewBody, type ReviewBody } from '../utils/reviewValidation'
 import { siteReviewRepository } from '../repositories/siteReviewRepository'
 import { notifyReviewCreated } from '../notifications'
 

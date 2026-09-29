@@ -9,10 +9,7 @@ const items = servicesByDivision('store').slice(0, 6)
   <section id="store" class="relative scroll-mt-20 overflow-hidden bg-canvas">
     <SectionSplit>
       <p class="g-label">Магазин</p>
-      <h2 class="g-h g-h2">
-        Автозапчасти —
-        со склада и <b>под заказ</b>
-      </h2>
+      <h2 class="g-h g-h2">Автозапчасти — со склада и <b>под заказ</b></h2>
 
       <p class="g-lead mt-5">
         Подбор по марке и VIN. Адрес магазина — ул. Маршала Кошевого, 25. Установку делаем на

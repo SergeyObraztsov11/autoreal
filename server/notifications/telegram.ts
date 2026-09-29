@@ -34,10 +34,7 @@ function isConfigured() {
  * Возвращает: безопасную строку.
  */
 function escapeHtml(value: string) {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
+  return value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 }
 
 /**
@@ -93,7 +90,7 @@ async function telegramPost(method: string, body: Record<string, unknown>) {
     signal: AbortSignal.timeout(TIMEOUT_MS),
   })
 
-  const payload = await response.json().catch(() => null) as TelegramSendResult | null
+  const payload = (await response.json().catch(() => null)) as TelegramSendResult | null
   if (!response.ok || !payload?.ok) {
     throw new Error(payload?.description || `Telegram HTTP ${response.status}`)
   }

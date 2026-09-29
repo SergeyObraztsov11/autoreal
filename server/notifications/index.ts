@@ -9,14 +9,10 @@ import type { CallbackNotifier, ReviewNotifier } from './types'
 import { telegramNotifier, telegramReviewNotifier } from './telegram'
 
 /** Подключённые каналы для заявок. */
-const callbackNotifiers: CallbackNotifier[] = [
-  telegramNotifier,
-]
+const callbackNotifiers: CallbackNotifier[] = [telegramNotifier]
 
 /** Подключённые каналы для отзывов. */
-const reviewNotifiers: ReviewNotifier[] = [
-  telegramReviewNotifier,
-]
+const reviewNotifiers: ReviewNotifier[] = [telegramReviewNotifier]
 
 /**
  * Рассылает уведомление о новой заявке во все подключённые каналы.
@@ -28,8 +24,7 @@ export async function notifyCallbackCreated(request: CallbackRequest) {
   for (const channel of callbackNotifiers) {
     try {
       await channel.notify(request)
-    }
-    catch (error) {
+    } catch (error) {
       appLogger.error('callback notification failed', {
         channel: channel.name,
         id: request.id,
@@ -49,8 +44,7 @@ export async function notifyReviewCreated(review: SiteReview) {
   for (const channel of reviewNotifiers) {
     try {
       await channel.notify(review)
-    }
-    catch (error) {
+    } catch (error) {
       appLogger.error('review notification failed', {
         channel: channel.name,
         id: review.id,

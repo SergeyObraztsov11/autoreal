@@ -13,8 +13,7 @@ export default defineEventHandler(async event => {
     const body = await readBody(event)
     const data = await submitSiteReview(event, body)
     return ok(data)
-  }
-  catch (error) {
+  } catch (error) {
     if (isAppError(error)) {
       if (error.code === 'VALIDATION_ERROR') {
         log.debug('review validation failed', {

@@ -26,8 +26,7 @@ export default defineNuxtPlugin(nuxtApp => {
 function tryUseRequestEvent() {
   try {
     return useRequestEvent()
-  }
-  catch {
+  } catch {
     return null
   }
 }

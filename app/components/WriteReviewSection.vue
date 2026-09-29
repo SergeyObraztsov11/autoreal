@@ -27,11 +27,7 @@ const { show } = useReviewModal()
         </p>
       </div>
 
-      <AppButton
-        type="button"
-        class="w-full shrink-0 sm:w-auto"
-        @click="show"
-      >
+      <AppButton type="button" class="w-full shrink-0 sm:w-auto" @click="show">
         <Icon name="lucide:square-pen" class="size-[1.125rem] shrink-0" />
         Написать отзыв
       </AppButton>

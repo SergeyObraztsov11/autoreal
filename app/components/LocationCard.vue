@@ -53,9 +53,7 @@ withDefaults(
     <p class="mt-4 text-white/80">
       {{ location.address }}
     </p>
-    <p class="mt-1.5 text-white/80">
-      {{ location.hours.weekdays }} · {{ location.hours.weekend }}
-    </p>
+    <p class="mt-1.5 text-white/80">{{ location.hours.weekdays }} · {{ location.hours.weekend }}</p>
     <p class="phone mt-1.5 text-white/80">
       {{ location.phone }}
     </p>

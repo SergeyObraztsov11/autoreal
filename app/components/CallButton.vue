@@ -14,11 +14,7 @@ const attrs = useAttrs()
 </script>
 
 <template>
-  <AppButton
-    v-bind="attrs"
-    :href="phoneTelHref(props.number)"
-    :variant="variant"
-  >
+  <AppButton v-bind="attrs" :href="phoneTelHref(props.number)" :variant="variant">
     <Icon name="lucide:phone" class="size-4" />
     Позвонить
   </AppButton>

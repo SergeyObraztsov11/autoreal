@@ -100,8 +100,7 @@ export async function pruneOldLogs(force = false) {
       if (!day || day >= cutoff) continue
       await unlink(path.join(logsDir, name))
     }
-  }
-  catch {
+  } catch {
     // Чистка не должна ронять запись лога.
   }
 }
@@ -123,8 +122,7 @@ async function writeToFile(level: LogLevel, message: string, meta: Meta) {
     })
     await appendFile(todayLogFile(), `${line}\n`, 'utf8')
     void pruneOldLogs()
-  }
-  catch {
+  } catch {
     // Логирование не должно ломать обработку заявки.
   }
 }

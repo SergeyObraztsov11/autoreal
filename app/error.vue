@@ -20,7 +20,6 @@ const requestId = computed(() => {
   return null
 })
 
-
 if (statusCode.value === 404) {
   clearError()
   await navigateTo('/', { replace: true })

@@ -35,11 +35,11 @@ npm run start
 
 ### Required on the server
 
-| Need | Why |
-|------|-----|
-| Writable `data/` | `requests.json`, `site-reviews.json` (created at runtime; gitignored) |
-| Writable `logs/` | App logs + retention plugin |
-| Env from `.env.example` | Logging, rate limit, timezone, Telegram |
+| Need                    | Why                                                                   |
+| ----------------------- | --------------------------------------------------------------------- |
+| Writable `data/`        | `requests.json`, `site-reviews.json` (created at runtime; gitignored) |
+| Writable `logs/`        | App logs + retention plugin                                           |
+| Env from `.env.example` | Logging, rate limit, timezone, Telegram                               |
 
 Important env keys:
 

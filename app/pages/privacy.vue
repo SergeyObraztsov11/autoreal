@@ -19,7 +19,9 @@ useSeoMeta({
       </template>
     </PageHero>
 
-    <div class="mx-auto max-w-3xl space-y-8 px-5 py-14 text-[1.0625rem] leading-relaxed text-ink md:px-6 md:py-16">
+    <div
+      class="mx-auto max-w-3xl space-y-8 px-5 py-14 text-[1.0625rem] leading-relaxed text-ink md:px-6 md:py-16"
+    >
       <section class="space-y-3">
         <h2 class="g-display text-xl font-bold">1. Оператор</h2>
         <p>
@@ -66,8 +68,8 @@ useSeoMeta({
         <h2 class="g-display text-xl font-bold">4. Правовые основания</h2>
         <p>
           Обработка осуществляется на основании согласия субъекта персональных данных (ст. 6, 9
-          Федерального закона № 152-ФЗ «О персональных данных»), которое вы даёте при отправке
-          формы на сайте.
+          Федерального закона № 152-ФЗ «О персональных данных»), которое вы даёте при отправке формы
+          на сайте.
         </p>
       </section>
 
@@ -94,8 +96,8 @@ useSeoMeta({
           Вы можете запросить уточнение, блокирование или удаление своих данных, а также отозвать
           согласие — напишите на
           <a :href="`mailto:${brand.email}`" class="g-link-accent font-semibold">
-            {{ brand.email }}
-          </a>.
+            {{ brand.email }} </a
+          >.
         </p>
       </section>
 

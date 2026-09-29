@@ -60,10 +60,10 @@ export function parseApiError(err: unknown): ParsedApiError {
   if (payload) {
     for (const detail of payload.details) {
       if (
-        detail.field === 'name'
-        || detail.field === 'phone'
-        || detail.field === 'text'
-        || detail.field === 'rating'
+        detail.field === 'name' ||
+        detail.field === 'phone' ||
+        detail.field === 'text' ||
+        detail.field === 'rating'
       ) {
         fieldErrors[detail.field] = detail.message
       }

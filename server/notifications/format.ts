@@ -13,12 +13,7 @@ import { formatDateTime } from '../../shared/time'
  * Возвращает: многострочную строку без разметки.
  */
 export function formatCallbackText(request: CallbackRequest) {
-  const lines = [
-    'Новая заявка',
-    '',
-    `Имя: ${request.name}`,
-    `Телефон: ${request.phone}`,
-  ]
+  const lines = ['Новая заявка', '', `Имя: ${request.name}`, `Телефон: ${request.phone}`]
 
   if (request.title) {
     lines.push(`Тема: ${request.title}`)

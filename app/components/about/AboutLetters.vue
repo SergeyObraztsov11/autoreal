@@ -9,7 +9,7 @@ const items = media.letters.map((src, i) => ({
 const activeIndex = ref<number | null>(null)
 const lightboxOpen = computed(() => activeIndex.value !== null)
 const activeItem = computed(() =>
-  activeIndex.value === null ? null : items[activeIndex.value] ?? null,
+  activeIndex.value === null ? null : (items[activeIndex.value] ?? null),
 )
 
 const dragX = ref(0)
@@ -95,8 +95,7 @@ function endTrack() {
   if (wasHorizontal && Math.abs(dx) > 40) {
     if (dx > 0) goPrev()
     else goNext()
-  }
-  else {
+  } else {
     dragX.value = 0
   }
 }
@@ -147,7 +146,7 @@ function unbindStageListeners(el: HTMLElement) {
   el.removeEventListener('touchcancel', onTouchEnd)
 }
 
-watch(lightboxOpen, (open) => {
+watch(lightboxOpen, open => {
   if (open) document.addEventListener('keydown', onLightboxKey)
   else document.removeEventListener('keydown', onLightboxKey)
 })
@@ -179,7 +178,7 @@ onBeforeUnmount(() => {
         :items="items"
         label="Сертификаты и благодарности"
         slide-class="w-[8.5rem] sm:w-[9.5rem] md:w-[10.5rem] lg:w-[11.5rem]"
-        :item-key="(item) => item.id"
+        :item-key="item => item.id"
       >
         <template #default="{ item, index }">
           <button
@@ -194,7 +193,7 @@ onBeforeUnmount(() => {
               class="aspect-[3/4] w-full object-contain bg-canvas"
               loading="lazy"
               decoding="async"
-            >
+            />
           </button>
         </template>
       </SnapSwiper>
@@ -206,7 +205,9 @@ onBeforeUnmount(() => {
         class="fixed inset-0 z-[100] flex flex-col bg-black/80"
         @click.self="closeLightbox"
       >
-        <div class="flex shrink-0 items-center justify-end px-4 pb-2 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
+        <div
+          class="flex shrink-0 items-center justify-end px-4 pb-2 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6"
+        >
           <button
             type="button"
             class="inline-flex size-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
@@ -234,12 +235,10 @@ onBeforeUnmount(() => {
             :class="dragging ? 'transition-none' : 'transition-transform duration-200 ease-out'"
             :style="{ transform: `translateX(${dragX}px)` }"
             draggable="false"
-          >
+          />
         </div>
 
-        <div
-          class="shrink-0 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-2 sm:px-6"
-        >
+        <div class="shrink-0 px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-2 sm:px-6">
           <p class="mb-3 text-center text-xs font-medium tracking-wide text-white/45 md:hidden">
             Листайте в стороны
           </p>

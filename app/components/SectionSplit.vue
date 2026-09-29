@@ -34,10 +34,7 @@ withDefaults(
           <slot name="body" />
         </div>
       </div>
-      <div
-        v-if="$slots.media"
-        class="hidden min-w-0 self-center md:col-start-2 md:block"
-      >
+      <div v-if="$slots.media" class="hidden min-w-0 self-center md:col-start-2 md:block">
         <slot name="media" />
       </div>
     </template>
@@ -52,10 +49,7 @@ withDefaults(
       >
         <slot name="media" />
       </div>
-      <div
-        v-if="$slots.body"
-        class="min-w-0 md:col-span-2 md:row-start-2"
-      >
+      <div v-if="$slots.body" class="min-w-0 md:col-span-2 md:row-start-2">
         <slot name="body" />
       </div>
     </template>
