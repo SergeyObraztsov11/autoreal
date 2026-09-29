@@ -1,12 +1,20 @@
-/** Normalize any RU phone string to 11 digits starting with 7 */
+/** Normalize any RU phone string to 11 digits starting with 7 when complete enough. */
 export function normalizeRuPhone(raw: string) {
   const d = raw.replace(/\D/g, '')
-  if (d.length === 10) return `7${d}`
+  // 8XXXXXXXXXX → 7XXXXXXXXXX
   if (d.length === 11 && d.startsWith('8')) return `7${d.slice(1)}`
+  // Local 10 digits without country code (e.g. 9XX...) → prepend 7
+  // Do NOT prepend when it already starts with 7/8 — that is an incomplete +7/8 number
+  if (d.length === 10 && !d.startsWith('7') && !d.startsWith('8')) return `7${d}`
   return d
 }
 
-/** True when the number is a complete Russian mobile/landline: 7 + 10 digits */
+/** Digit count after stripping non-digits (for length checks). */
+export function ruPhoneDigitCount(raw: string) {
+  return raw.replace(/\D/g, '').length
+}
+
+/** True when the number is a complete Russian number: 7 + 10 digits */
 export function isValidRuPhone(raw: string) {
   return /^7\d{10}$/.test(normalizeRuPhone(raw))
 }

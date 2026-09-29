@@ -42,7 +42,7 @@ export function parseRequestBody(body: RequestBody | null | undefined): ValidReq
   if (!isValidRuPhone(phone)) {
     details.push({
       field: 'phone',
-      message: 'Укажите телефон в формате +7 (XXX) XXX-XX-XX',
+      message: 'Введите номер полностью: +7 (XXX) XXX-XX-XX',
     })
   }
 

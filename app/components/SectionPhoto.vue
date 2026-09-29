@@ -1,76 +1,64 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     src: string
     badge?: string
-    desktop?: 'para' | 'chevron'
-    desktopAspect?: string
+    /** Fixed ratio — controls height. Default 4/3 when framed. Empty = natural. */
+    aspect?: string
+    priority?: boolean
+    /** Hard shadow + ink border. Off = plain photo. */
+    framed?: boolean
+    /** On ink backgrounds, use yellow extrusion so the shadow stays visible. */
+    tone?: 'light' | 'dark'
   }>(),
   {
     badge: undefined,
-    desktop: 'para',
-    desktopAspect: 'aspect-square',
+    aspect: undefined,
+    priority: false,
+    framed: true,
+    tone: 'light',
   },
+)
+
+const frameBorder = computed(() => (props.tone === 'dark' ? 'border-yellow' : 'border-ink'))
+const frameShadow = computed(() =>
+  props.tone === 'dark' ? 'shadow-hard-yellow' : 'shadow-hard',
 )
 </script>
 
 <template>
-  <div class="w-full">
-    <!-- Mobile: rectangle + hard shadow (same language as buttons/cards) -->
-    <div class="relative pr-1.5 pb-1.5 md:hidden">
+  <div class="relative w-full">
+    <!-- Plain / cutout photo — no border, no shadow -->
+    <img
+      v-if="!framed"
+      :src="src"
+      alt=""
+      class="block w-full object-contain"
+      :class="aspect || undefined"
+      :loading="priority ? 'eager' : 'lazy'"
+      :fetchpriority="priority ? 'high' : undefined"
+    />
+
+    <!-- Framed: one hard shadow (same as cards) -->
+    <div
+      v-else
+      class="relative overflow-hidden border-2 bg-canvas g-radius"
+      :class="[frameBorder, frameShadow]"
+    >
       <img
         :src="src"
         alt=""
-        class="aspect-[3/2] w-full border-2 border-ink bg-canvas object-cover shadow-hard"
-        loading="lazy"
+        class="block w-full object-cover"
+        :class="aspect || 'aspect-[4/3]'"
+        :loading="priority ? 'eager' : 'lazy'"
+        :fetchpriority="priority ? 'high' : undefined"
       />
       <span
         v-if="badge"
-        class="absolute bottom-3 left-0 z-10 bg-ink px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-yellow"
+        class="absolute bottom-0 left-0 bg-ink px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-yellow"
       >
         {{ badge }}
       </span>
-    </div>
-
-    <div
-      v-if="desktop === 'para'"
-      class="relative hidden w-full md:block"
-      :class="desktopAspect"
-    >
-      <div
-        class="g-para-r absolute inset-y-0 right-0 w-[78%] translate-x-3 translate-y-3 bg-ink"
-        aria-hidden="true"
-      />
-      <div class="g-para-r absolute inset-y-0 right-0 w-[78%] bg-yellow" aria-hidden="true" />
-      <img
-        :src="src"
-        alt=""
-        class="g-para-l absolute inset-y-[6%] left-0 h-[88%] w-[88%] bg-canvas object-cover object-[44%_50%]"
-        loading="lazy"
-      />
-      <span class="absolute bottom-0 right-[6%] h-10 w-10 bg-ink" aria-hidden="true" />
-    </div>
-
-    <div
-      v-else
-      class="relative hidden w-full md:block"
-      :class="desktopAspect"
-    >
-      <div
-        class="g-chevron absolute inset-y-0 left-[-8%] w-[80%] translate-x-3 translate-y-3 bg-ink"
-        aria-hidden="true"
-      />
-      <div
-        class="g-chevron absolute inset-y-0 left-[-10%] w-[80%] bg-yellow"
-        aria-hidden="true"
-      />
-      <img
-        :src="src"
-        alt=""
-        class="g-para absolute inset-y-[6%] left-[14%] h-[88%] w-[86%] bg-canvas object-cover"
-        loading="lazy"
-      />
-      <span class="g-tri-tl absolute left-0 top-0 h-16 w-16 bg-ink" aria-hidden="true" />
     </div>
   </div>
 </template>

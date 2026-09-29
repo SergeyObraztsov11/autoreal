@@ -7,5 +7,6 @@
     <AppFooter />
     <MobileCallButton />
     <RequestModal />
+    <ReviewModal />
   </div>
 </template>

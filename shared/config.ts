@@ -43,4 +43,13 @@ export const config = {
   get timezone() {
     return str('NUXT_APP_TIMEZONE', 'Europe/Moscow')
   },
+  get telegramBotToken() {
+    return str('NUXT_TELEGRAM_BOT_TOKEN', '')
+  },
+  get telegramChatIds() {
+    return str('NUXT_TELEGRAM_CHAT_ID', '')
+      .split(',')
+      .map(id => id.trim())
+      .filter(Boolean)
+  },
 }

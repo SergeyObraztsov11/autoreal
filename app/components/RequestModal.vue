@@ -42,7 +42,9 @@ function validateClient(): boolean {
     next.name = 'Укажите корректное имя'
   }
   if (!isValidRuPhone(phone.value)) {
-    next.phone = 'Укажите телефон в формате +7 (XXX) XXX-XX-XX'
+    next.phone = phone.value.trim()
+      ? 'Введите номер полностью: +7 (XXX) XXX-XX-XX'
+      : 'Укажите телефон'
   }
 
   fieldErrors.value = next
@@ -159,11 +161,11 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
           </div>
           <button
             type="button"
-            class="g-tile h-10 w-10 shrink-0 sm:h-9 sm:w-9"
+            class="inline-flex size-10 shrink-0 items-center justify-center text-ink transition-opacity hover:opacity-60 sm:size-9"
             aria-label="Закрыть"
             @click="hide"
           >
-            <Icon name="lucide:x" class="size-4" />
+            <Icon name="lucide:x" class="size-5" />
           </button>
         </div>
 
@@ -195,6 +197,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
               inputmode="tel"
               autocomplete="tel"
               :minlength="PHONE_MASK_LENGTH"
+              :maxlength="PHONE_MASK_LENGTH"
               class="g-input phone"
               :class="fieldErrors.phone ? 'border-red-600' : ''"
               placeholder="+7 (___) ___-__-__"
@@ -233,7 +236,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
             {{ error }}
           </p>
           <AppButton type="submit" class="w-full" :disabled="submitting">
-            <Icon name="lucide:send" class="size-4" />
+            <Icon name="lucide:upload" class="size-4" />
             {{ submitting ? 'Отправка…' : 'Отправить заявку' }}
           </AppButton>
         </form>

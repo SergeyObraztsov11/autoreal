@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Location } from '~/data/site'
-import { yandexOrgWidgetUrl, yandexRouteUrl } from '~/data/site'
+import { yandexOrgWidgetUrl } from '~/data/site'
 
 const props = withDefaults(
   defineProps<{
@@ -18,15 +18,36 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
 
 <template>
   <!--
-    Mobile: stacked halves share one outline (info has no bottom border).
-    Desktop: two separate cards; section itself has no border/shadow.
+    Mobile: one card — Yandex link / address / map.
+    Desktop: two separate cards.
   -->
-  <section class="lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+  <section>
+    <!-- Mobile -->
     <div
-      class="border-2 border-b-0 border-ink bg-white px-4 py-4 lg:self-start lg:border-b-2 lg:p-7 lg:shadow-hard"
+      class="overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white shadow-hard lg:hidden"
     >
-      <!-- Mobile: short block -->
-      <div class="lg:hidden">
+      <!-- 1. Yandex Maps -->
+      <div class="px-4 py-3">
+        <a
+          :href="location.yandexUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 text-sm font-bold leading-none text-ink underline-offset-2 hover:underline"
+        >
+          <img
+            src="/Yandex_znak.svg"
+            alt=""
+            width="18"
+            height="18"
+            class="block size-[18px] shrink-0"
+            decoding="async"
+          >
+          <span>Яндекс&nbsp;Карты</span>
+        </a>
+      </div>
+
+      <!-- 2. Address -->
+      <div class="border-t-2 border-line px-5 py-5">
         <p class="text-xs font-bold uppercase tracking-[0.14em] text-muted">
           {{ location.label }}
         </p>
@@ -42,8 +63,30 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
         </p>
       </div>
 
-      <!-- Desktop: full card content -->
-      <div class="hidden lg:block">
+      <!-- 3. Map -->
+      <div class="h-[220px] bg-canvas sm:h-[260px]">
+        <ClientOnly>
+          <iframe
+            :src="src"
+            :title="`Яндекс.Карты — ${location.title}`"
+            class="h-full w-full border-0"
+            loading="lazy"
+            allowfullscreen
+          />
+          <template #fallback>
+            <div class="flex h-full items-center justify-center text-sm text-muted">
+              Загрузка карты…
+            </div>
+          </template>
+        </ClientOnly>
+      </div>
+    </div>
+
+    <!-- Desktop -->
+    <div class="hidden lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+      <div
+        class="self-start rounded-[var(--g-radius)] border-2 border-ink bg-white p-7 shadow-hard"
+      >
         <div class="flex items-center gap-4">
           <span class="g-tile h-12 w-12 shrink-0">
             <Icon :name="location.icon" class="size-5" />
@@ -83,50 +126,48 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
           </div>
         </dl>
       </div>
-    </div>
-
-    <div
-      class="flex flex-col overflow-hidden border-2 border-ink bg-white shadow-hard-sm lg:shadow-hard"
-    >
-      <div
-        class="order-2 grid grid-cols-2 border-t border-line text-sm lg:order-1 lg:flex lg:items-center lg:justify-between lg:gap-4 lg:border-b-2 lg:border-t-0 lg:border-ink lg:px-5 lg:py-3"
-      >
-        <a
-          :href="location.yandexUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-3 py-3 text-center font-semibold text-ink underline-offset-2 hover:underline lg:px-0 lg:py-0 lg:text-left lg:g-link-accent"
-        >
-          Яндекс.Карты
-        </a>
-        <a
-          :href="yandexRouteUrl(location)"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="border-l border-line px-3 py-3 text-center font-bold text-ink underline-offset-2 hover:underline lg:border-0 lg:px-0 lg:py-0 lg:text-right lg:g-link-accent lg:underline"
-        >
-          Маршрут
-        </a>
-      </div>
 
       <div
-        class="order-1 h-[220px] bg-canvas sm:h-[260px] lg:order-2 lg:h-[var(--map-h)]"
-        :style="{ '--map-h': height }"
+        class="flex flex-col overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white shadow-hard"
       >
-        <ClientOnly>
-          <iframe
-            :src="src"
-            :title="`Яндекс.Карты — ${location.title}`"
-            class="h-full w-full border-0"
-            loading="lazy"
-            allowfullscreen
-          />
-          <template #fallback>
-            <div class="flex h-full items-center justify-center text-sm text-muted">
-              Загрузка карты…
-            </div>
-          </template>
-        </ClientOnly>
+        <div class="border-b-2 border-ink px-5 py-3 text-sm">
+          <a
+            :href="location.yandexUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-sm font-bold leading-none text-ink underline-offset-2 hover:underline"
+          >
+            <img
+              src="/Yandex_znak.svg"
+              alt=""
+              width="18"
+              height="18"
+              class="block size-[18px] shrink-0"
+              decoding="async"
+            >
+            <span>Яндекс&nbsp;Карты</span>
+          </a>
+        </div>
+
+        <div
+          class="bg-canvas lg:h-[var(--map-h)]"
+          :style="{ '--map-h': height }"
+        >
+          <ClientOnly>
+            <iframe
+              :src="src"
+              :title="`Яндекс.Карты — ${location.title}`"
+              class="h-full w-full border-0"
+              loading="lazy"
+              allowfullscreen
+            />
+            <template #fallback>
+              <div class="flex h-full items-center justify-center text-sm text-muted">
+                Загрузка карты…
+              </div>
+            </template>
+          </ClientOnly>
+        </div>
       </div>
     </div>
   </section>

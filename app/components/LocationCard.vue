@@ -13,32 +13,33 @@ withDefaults(
 
 <template>
   <!-- Home: card with mobile call/route CTAs -->
-  <li v-if="variant === 'home'" class="g-card flex h-full flex-col p-3.5 sm:p-6">
-    <div class="flex items-center gap-3">
-      <span class="g-tile h-9 w-9 shrink-0 sm:h-11 sm:w-11">
-        <Icon :name="location.icon" class="size-4 sm:size-5" />
+  <li v-if="variant === 'home'" class="g-card flex h-full flex-col p-5 md:p-6">
+    <div class="flex items-center gap-3.5">
+      <span class="g-tile h-11 w-11 shrink-0">
+        <Icon :name="location.icon" class="size-5" />
       </span>
       <div class="min-w-0">
         <p class="g-kicker">
           {{ location.label }}
         </p>
-        <p class="g-display text-sm font-bold leading-snug sm:text-lg">
+        <p class="g-display text-lg font-bold leading-snug">
           {{ location.address }}
         </p>
       </div>
     </div>
 
-    <p class="mt-3 text-sm leading-snug text-muted">
+    <p class="mt-4 text-[0.95rem] leading-relaxed text-muted">
       {{ location.hint }}
     </p>
-    <p class="mt-2 text-sm text-muted">
+    <p class="phone mt-2 text-sm font-bold">
       {{ location.hours.weekdays }} · {{ location.hours.weekend }}
     </p>
-    <div class="mt-2 hidden lg:block">
+    <div class="mt-2 hidden items-center gap-2 lg:flex">
+      <Icon name="lucide:phone" class="size-4 shrink-0" />
       <PhoneLink :number="location.phone" class="text-sm font-bold" />
     </div>
 
-    <div class="mt-4 grid grid-cols-2 gap-3 lg:hidden">
+    <div class="mt-5 grid grid-cols-2 gap-3 lg:hidden">
       <CallButton :number="location.phone" variant="primary" />
       <RouteButton :location="location" />
     </div>

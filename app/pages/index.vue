@@ -10,9 +10,9 @@ useSeoMeta({
 <template>
   <div>
     <HomeHero />
+    <HomeWhy />
     <HomeServices />
     <HomeAkpp />
-    <HomeWhy />
     <HomeStore />
     <HomeContacts />
     <HomeCta />

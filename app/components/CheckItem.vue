@@ -8,7 +8,7 @@ const props = withDefaults(
 
 const rootClass = computed(() => {
   if (props.variant === 'boxed') {
-    return 'g-hard-sm flex items-center gap-3 border-2 border-ink bg-white px-4 py-3.5 text-sm font-semibold md:py-3'
+    return 'g-hard g-radius flex items-center gap-3.5 border-2 border-ink bg-white px-4 py-3.5 text-[0.95rem] font-semibold leading-snug'
   }
   if (props.variant === 'plain') {
     return 'flex items-center gap-3 text-[15px] font-semibold md:text-sm'
@@ -21,10 +21,10 @@ const rootClass = computed(() => {
   <li :class="rootClass">
     <span
       v-if="variant === 'boxed'"
-      class="g-tile g-tile-yellow h-6 w-6 shrink-0"
+      class="g-tile g-tile-yellow h-7 w-7 shrink-0 md:h-6 md:w-6"
       aria-hidden="true"
     >
-      <Icon name="lucide:check" class="size-3.5" />
+      <Icon name="lucide:check" class="size-4 md:size-3.5" />
     </span>
     <Icon
       v-else-if="variant === 'plain'"

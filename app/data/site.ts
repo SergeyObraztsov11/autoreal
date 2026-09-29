@@ -2,7 +2,7 @@
 
 export const brand = {
   name: 'Автореал',
-  tagline: 'Автотехцентр в Волгодонске',
+  tagline: 'Полный цикл обслуживания автомобиля в Волгодонске',
   legalName: 'ООО «АВТОРЕАЛ ПЛЮС»',
   email: 'autoreal61@bk.ru',
   logo: '/autoreal_logo.png',
@@ -92,6 +92,16 @@ export function yandexOrgWidgetUrl(loc: Location) {
     scroll: 'false',
   })
   return `https://yandex.ru/map-widget/v1/?${params}`
+}
+
+/** Official Yandex Maps reviews iframe for an organization card */
+export function yandexReviewsWidgetUrl(loc: Location) {
+  return `https://yandex.ru/maps-reviews-widget/${loc.yandexOrgId}?comments`
+}
+
+/** Reviews tab deep-link on the org card */
+export function yandexReviewsUrl(loc: Location) {
+  return `${loc.yandexUrl}#reviews`
 }
 
 export const legal = {

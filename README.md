@@ -1,75 +1,63 @@
-# Nuxt Minimal Starter
+# Autoreal
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 4 site for Автореал (Volgodonsk): SSR + Nitro API for callback requests and site reviews.
 
 ## Setup
 
-Make sure to install dependencies:
-
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+Copy env template and fill values (Telegram is optional — forms work without it):
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+cp .env.example .env
 ```
+
+## Development
+
+```bash
+npm run dev
+```
+
+App: `http://127.0.0.1:3000`
 
 ## Production
 
-Build the application for production:
+Do **not** use `nuxt generate` for this project — forms and Telegram need a running Node server.
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npm run start
 ```
 
-Locally preview production build:
+`npm start` runs `node .output/server/index.mjs` (default port `3000`, or set `PORT` / `HOST`).
+
+### Required on the server
+
+| Need | Why |
+|------|-----|
+| Writable `data/` | `requests.json`, `site-reviews.json` (created at runtime; gitignored) |
+| Writable `logs/` | App logs + retention plugin |
+| Env from `.env.example` | Logging, rate limit, timezone, Telegram |
+
+Important env keys:
+
+- `NUXT_TELEGRAM_BOT_TOKEN` / `NUXT_TELEGRAM_CHAT_ID` — notify on new callbacks and reviews
+- `NUXT_LOG_LEVEL`, `NUXT_LOG_RETENTION_DAYS`
+- `NUXT_RATE_LIMIT_MAX`, `NUXT_RATE_LIMIT_WINDOW_MINUTES`
+- `NUXT_APP_TIMEZONE` (default `Europe/Moscow`)
+
+Never commit `.env`.
+
+## Lint / format
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+npm run check
+npm run fix
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Docs
+
+- [Nuxt deployment](https://nuxt.com/docs/getting-started/deployment)
+- [docs/design.md](docs/design.md) — UI system

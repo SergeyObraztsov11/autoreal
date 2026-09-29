@@ -6,10 +6,17 @@
   --g-yellow-deep: #e6d100;
   --g-ink: #0a0a0a;
   --g-ink-2: #1c1c1c;
-  --g-muted: #5f5f5f;
+  --g-muted: #4d4d4d;
   --g-bg: #f4f4f2;
   --g-line: #e2e2df;
   --g-skew: -12deg;
+  /* Slight rounding — same on cards, buttons, tiles, photos, inputs */
+  --g-radius: 0.25rem;
+  /* Hard extrusion — one size everywhere */
+  --g-shadow: 5px 5px 0 var(--g-ink);
+  --g-shadow-press: 3px 3px 0 var(--g-ink);
+  --g-shadow-yellow: 5px 5px 0 var(--g-yellow);
+  --g-shadow-yellow-press: 3px 3px 0 var(--g-yellow);
 
   --font-display: 'Onest', system-ui, sans-serif;
   --font-body: 'Golos Text', system-ui, sans-serif;
@@ -20,6 +27,7 @@ html {
   color: var(--g-ink);
   background: var(--g-bg);
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -64,23 +72,15 @@ html {
 .decoration-yellow {
   text-decoration-color: var(--g-yellow);
 }
-.shadow-hard {
-  box-shadow: 5px 5px 0 var(--g-ink);
-}
-.shadow-hard-sm {
-  box-shadow: 3px 3px 0 var(--g-ink);
-}
+.shadow-hard,
+.shadow-hard-sm,
 .shadow-hard-md {
-  box-shadow: 4px 4px 0 var(--g-ink);
+  box-shadow: var(--g-shadow);
 }
-.shadow-hard-yellow {
-  box-shadow: 5px 5px 0 var(--g-yellow);
-}
-.shadow-hard-yellow-sm {
-  box-shadow: 3px 3px 0 var(--g-yellow);
-}
+.shadow-hard-yellow,
+.shadow-hard-yellow-sm,
 .shadow-hard-yellow-md {
-  box-shadow: 4px 4px 0 var(--g-yellow);
+  box-shadow: var(--g-shadow-yellow);
 }
 
 .g-display {
@@ -147,18 +147,28 @@ html {
 }
 
 /* Hard black extrusion like the logo */
-.g-hard {
-  box-shadow: 5px 5px 0 var(--g-ink);
-}
+.g-hard,
 .g-hard-sm {
-  box-shadow: 3px 3px 0 var(--g-ink);
+  box-shadow: var(--g-shadow);
 }
 
 /* Card: white, black frame, hard shadow */
 .g-card {
-  border: 2px solid var(--g-ink);
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--g-ink);
+  border-radius: var(--g-radius);
   background: #fff;
-  box-shadow: 5px 5px 0 var(--g-ink);
+  box-shadow: var(--g-shadow);
+}
+.g-card-accent {
+  border-top-width: 4px;
+  border-top-color: var(--g-yellow);
+}
+
+/* Shared corner radius for bordered boxes outside .g-card */
+.g-radius {
+  border-radius: var(--g-radius);
 }
 
 /* Buttons */
@@ -167,13 +177,13 @@ html {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.25rem;
-  padding: 0.8rem 1.35rem;
-  font-size: 0.9rem;
+  border-radius: var(--g-radius);
+  padding: 0.9rem 1.5rem;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1.2;
   border: 2px solid var(--g-ink);
-  box-shadow: 4px 4px 0 var(--g-ink);
+  box-shadow: var(--g-shadow);
   transition:
     transform 0.15s,
     box-shadow 0.15s,
@@ -182,18 +192,26 @@ html {
 }
 .g-btn:hover {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--g-ink);
+  box-shadow: var(--g-shadow-press);
 }
 .g-btn:focus-visible {
   outline: 2px solid var(--g-ink);
   outline-offset: 3px;
 }
-/* Mobile: comfortable tap targets */
+/* Mobile: comfortable tap targets + readable type */
 @media (max-width: 767px) {
   .g-btn {
-    min-height: 3.25rem;
-    padding: 0.9rem 1.4rem;
-    font-size: 0.95rem;
+    min-height: 3.5rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.0625rem;
+  }
+  .g-label {
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.16em;
+  }
+  .g-kicker {
+    font-size: 0.8125rem;
   }
 }
 .g-btn-primary {
@@ -211,10 +229,10 @@ html {
   background: var(--g-ink);
   color: var(--g-yellow);
   border-color: var(--g-yellow);
-  box-shadow: 4px 4px 0 var(--g-yellow);
+  box-shadow: var(--g-shadow-yellow);
 }
 .g-btn-dark:hover {
-  box-shadow: 2px 2px 0 var(--g-yellow);
+  box-shadow: var(--g-shadow-yellow-press);
 }
 
 /* Icon tile — black block with yellow glyph */
@@ -222,7 +240,7 @@ html {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.25rem;
+  border-radius: var(--g-radius);
   background: var(--g-ink);
   color: var(--g-yellow);
   flex-shrink: 0;
@@ -234,10 +252,10 @@ html {
 
 /* Section label */
 .g-label {
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--g-muted);
 }
@@ -257,15 +275,31 @@ html {
   color: var(--g-yellow);
 }
 
-/* Page content width */
+/* Page content width — shared by header, sections, footer */
 .g-container {
   margin-inline: auto;
+  width: 100%;
   max-width: 80rem;
-  padding-inline: 1rem;
+  padding-inline: 1.25rem;
 }
 @media (min-width: 768px) {
   .g-container {
     padding-inline: 1.5rem;
+  }
+}
+
+/* Vertical section rhythm */
+.g-section {
+  padding-block: 3.5rem;
+}
+@media (min-width: 768px) {
+  .g-section {
+    padding-block: 5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .g-section {
+    padding-block: 6rem;
   }
 }
 
@@ -320,10 +354,47 @@ html {
   background: var(--g-ink);
 }
 
+/* Display sizes — one scale for hero and sections */
+.g-h1 {
+  font-size: 2.375rem;
+  line-height: 1.06;
+}
+.g-h2 {
+  font-size: 1.875rem;
+  line-height: 1.1;
+}
+.g-lead {
+  max-width: 36rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--g-muted);
+}
+@media (min-width: 768px) {
+  .g-h1 {
+    font-size: 3.25rem;
+  }
+  .g-h2 {
+    font-size: 2.5rem;
+  }
+  .g-lead {
+    font-size: 1.125rem;
+  }
+}
+@media (min-width: 1024px) {
+  .g-h1 {
+    font-size: 4rem;
+    line-height: 1.02;
+  }
+  .g-h2 {
+    font-size: 3rem;
+  }
+}
+
 /* Form fields */
 .g-input {
   width: 100%;
   border: 2px solid var(--g-ink);
+  border-radius: var(--g-radius);
   background: #fff;
   padding: 0.7rem 0.85rem;
   font-size: 0.9rem;
@@ -331,13 +402,13 @@ html {
   transition: box-shadow 0.15s;
 }
 .g-input:focus {
-  box-shadow: 3px 3px 0 var(--g-yellow);
+  box-shadow: var(--g-shadow-yellow);
 }
 /* Mobile: finger-sized fields, 16px prevents iOS zoom on focus */
 @media (max-width: 767px) {
   .g-input {
-    min-height: 3rem;
-    padding: 0.8rem 0.95rem;
-    font-size: 1rem;
+    min-height: 3.5rem;
+    padding: 0.9rem 1rem;
+    font-size: 1.0625rem;
   }
 }

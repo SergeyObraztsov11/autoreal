@@ -25,3 +25,6 @@ logs
 
 # Runtime callback leads (personal data)
 data/requests.json
+
+# Site reviews submitted via the form
+data/site-reviews.json

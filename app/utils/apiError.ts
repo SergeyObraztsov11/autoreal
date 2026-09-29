@@ -2,7 +2,7 @@
  * Разбор ошибок API на клиенте.
  * Коды и тексты баннеров берутся из shared/apiErrors — единого каталога.
  */
-import { ApiErrors, type ApiErrorCode } from '../../shared/apiErrors'
+import { ApiErrors, type ApiErrorCode } from '#shared/apiErrors'
 
 export type ApiErrorDetail = {
   field: string
@@ -19,7 +19,7 @@ export type ApiErrorPayload = {
 export type ParsedApiError = {
   code: string
   message: string
-  fieldErrors: Partial<Record<'name' | 'phone', string>>
+  fieldErrors: Partial<Record<'name' | 'phone' | 'text' | 'rating', string>>
   requestId: string | null
 }
 
@@ -59,7 +59,12 @@ export function parseApiError(err: unknown): ParsedApiError {
 
   if (payload) {
     for (const detail of payload.details) {
-      if (detail.field === 'name' || detail.field === 'phone') {
+      if (
+        detail.field === 'name'
+        || detail.field === 'phone'
+        || detail.field === 'text'
+        || detail.field === 'rating'
+      ) {
         fieldErrors[detail.field] = detail.message
       }
     }

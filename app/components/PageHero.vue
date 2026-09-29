@@ -23,16 +23,16 @@ defineProps<{
       aria-hidden="true"
     />
 
-    <div class="relative mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-16 lg:py-20">
+    <div class="g-container g-section relative">
       <p class="g-label text-yellow">
         {{ label }}
       </p>
-      <h1 class="g-h on-dark max-w-3xl text-4xl leading-[1.08] md:text-5xl lg:text-6xl">
+      <h1 class="g-h g-h1 on-dark max-w-3xl">
         <slot name="title" />
       </h1>
       <p
         v-if="$slots.lead"
-        class="mt-5 max-w-xl text-[15px] leading-relaxed text-white/70 md:mt-6 md:text-base"
+        class="mt-5 max-w-xl text-[1.0625rem] leading-relaxed text-white/75 md:mt-6 md:text-lg"
       >
         <slot name="lead" />
       </p>

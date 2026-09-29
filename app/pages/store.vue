@@ -16,7 +16,7 @@ useSeoMeta({
     <PageHero label="Магазин">
       <template #title>
         Запчасти <b>в наличии</b><br class="hidden md:block" />
-        и под заказ <b>с доставкой</b>.
+        и под заказ <b>с доставкой</b>
       </template>
       <template #lead>
         Подбор по марке и VIN. Установку охранных систем и замену жидкостей выполняем в техцентре.
@@ -34,11 +34,11 @@ useSeoMeta({
       </template>
     </PageHero>
 
-    <div class="g-container py-12 md:py-20">
+    <div class="g-container py-14 md:py-20">
       <LocationMapSection :location="location" />
     </div>
 
-    <div class="g-container pb-12 md:pb-20">
+    <div class="g-container pb-14 md:pb-24">
       <ServiceCatalog :items="items" :phone="phones.storeTollFree" cta-label="Заказ" />
     </div>
 

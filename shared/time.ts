@@ -96,3 +96,16 @@ export function dateStamp(date: Date = new Date()) {
 export function todayDate() {
   return dateStamp()
 }
+
+/**
+ * Человекочитаемые дата и время в поясе приложения.
+ * Получает: Date или ISO-строку (по умолчанию сейчас).
+ * Делает: считает день/месяц/год и часы:минуты в config.timezone.
+ * Возвращает: строку вида 24.09.2026 17:05.
+ */
+export function formatDateTime(value: Date | string = new Date()) {
+  const date = typeof value === 'string' ? new Date(value) : value
+  if (Number.isNaN(date.getTime())) return String(value)
+  const p = calendarParts(date)
+  return `${p.day}.${p.month}.${p.year} ${p.hour}:${p.minute}`
+}

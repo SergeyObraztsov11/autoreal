@@ -9,19 +9,19 @@ export const ApiErrors = {
     code: 'VALIDATION_ERROR',
     statusCode: 422,
     message: 'Invalid request data',
-    clientMessage: 'Проверьте имя и телефон.',
+    clientMessage: 'Проверьте заполненные поля.',
   },
   RATE_LIMIT_EXCEEDED: {
     code: 'RATE_LIMIT_EXCEEDED',
     statusCode: 429,
     message: 'Too many requests',
-    clientMessage: 'Слишком много заявок. Попробуйте позже.',
+    clientMessage: 'Слишком много попыток. Попробуйте позже.',
   },
   INTERNAL_ERROR: {
     code: 'INTERNAL_ERROR',
     statusCode: 500,
     message: 'Internal server error',
-    clientMessage: 'Не удалось отправить заявку. Попробуйте ещё раз.',
+    clientMessage: 'Не удалось отправить. Попробуйте ещё раз.',
   },
 } as const
 

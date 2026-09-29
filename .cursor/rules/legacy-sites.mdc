@@ -1,0 +1,29 @@
+---
+description: Old Autoreal sites — reference for the Nuxt rewrite
+alwaysApply: true
+---
+
+# Legacy sites (reference)
+
+The Nuxt app in this repo replaces the old Creatium multi-site cluster. Use these pages for **facts, offers, phones, addresses** — do not copy layout, markup, or wording 1:1. Prefer the current `app/data/*` as source of truth when they already differ.
+
+## Network
+
+| Site | URL | Role |
+|---|---|---|
+| Main | https://автореал61.рф/ ([punycode](https://xn--61-6kcajs7bvss.xn--p1ai/)) | Hub: techcenter + store teaser, diagnostics promo, callback forms, both addresses |
+| AKPP | https://замена-масла-акпп.автореал61.рф/ ([punycode](https://xn-----6kcabab8aq2bhhdl3ba1a.xn--61-6kcajs7bvss.xn--p1ai/)) | Full ATF flush landing: why replace oil, process steps, photo cases, ATF price-list CTA |
+| Soundproof | https://шумоизоляция.автореал61.рф/ ([punycode](https://xn--g1abblcmc9a7am8fc.xn--61-6kcajs7bvss.xn--p1ai/)) | Car soundproofing: up to ~70% noise cut in 1 day, 3y warranty, free quote |
+| Alarm | https://сигнализация.автореал61.рф/ ([punycode](https://xn--80aaagfzecc0auj3bm4e0h.xn--61-6kcajs7bvss.xn--p1ai/)) | Alarms / immobilizers / satellite / hood & gearbox locks; authorized install center |
+| Service | https://сто.автореал61.рф/ ([punycode](https://xn--n1afd.xn--61-6kcajs7bvss.xn--p1ai/)) | Full service catalog: TO, diagnostics, suspension, electrics, tires, AKPP flush, lockout |
+| Store | https://магазин.автореал61.рф/ ([punycode](https://xn--80aairftm.xn--61-6kcajs7bvss.xn--p1ai/)) | Parts shop: in stock + order by VIN, ATF/GUR fluids, delivery, warranty terms |
+
+## Short brief
+
+- **Business**: ООО «АВТОРЕАЛ ПЛЮС», Volgodonsk — techcenter (Октябрьское шоссе, 12) + parts store (Маршала Кошевого, 25 стр. 4).
+- **Hours**: Mon–Fri 9–19, Sat–Sun 9–16 (same on old sites).
+- **Phones (old sites)**: service `+7 (988) 89-00-839`; store / WhatsApp often `+7 (988) 55-22-969`, toll-free `8 800 551-18-05` — verify against `app/data/site.ts` before changing live copy.
+- **Shared pattern**: heavy callback/lead forms, “free diagnostics with subsequent repair” (not an offer), guarantee disclaimers.
+- **New product goal**: one modern site instead of this hub + 5 landings; service pages in Nuxt absorb AKPP / alarm / soundproof / STO content over time.
+
+When filling or rewriting section copy, skim the matching legacy URL above first, then adapt to the current design system.

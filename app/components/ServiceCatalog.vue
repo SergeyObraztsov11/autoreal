@@ -54,12 +54,12 @@ watch(() => route.hash, syncFromHash)
       v-for="(item, i) in items"
       :id="item.slug"
       :key="item.slug"
-      class="scroll-mt-24 border-2 border-ink bg-white transition-shadow"
+      class="scroll-mt-24 g-radius border-2 border-ink bg-white transition-shadow"
       :class="isOpen(item.slug) ? 'g-hard' : 'shadow-hard-yellow'"
     >
       <button
         type="button"
-        class="group flex w-full items-start gap-3 p-4 text-left sm:gap-4 sm:p-5 md:items-center md:gap-6 md:p-6"
+        class="group flex w-full items-start gap-3.5 p-5 text-left sm:gap-4 md:items-center md:gap-6 md:p-6"
         :aria-expanded="isOpen(item.slug)"
         @click="toggle(item.slug)"
       >
@@ -103,7 +103,7 @@ watch(() => route.hash, syncFromHash)
           </ul>
         </div>
 
-        <div class="mt-8 border-2 border-ink bg-yellow p-5 md:mt-0 md:self-start">
+        <div class="mt-8 g-radius border-2 border-ink bg-yellow p-5 md:mt-0 md:self-start">
           <p class="g-kicker">
             {{ ctaLabel || 'Заявка' }}
           </p>

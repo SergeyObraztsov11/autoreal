@@ -6,13 +6,15 @@
 /**
  * Приводит строку телефона к виду 7XXXXXXXXXX (только цифры).
  * Получает: raw — телефон в любом виде (+7, 8, скобки, пробелы).
- * Делает: выкидывает нецифры, 10 цифр дополняет семёркой, 8… → 7….
+ * Делает: выкидывает нецифры; 8…(11) → 7…; локальные 10 цифр без кода → 7….
+ * Не дописывает 7 к неполному номеру, который уже начинается с 7/8.
  * Возвращает: строку цифр (может быть невалидной длины, если вход кривой).
  */
 export function normalizeRuPhone(raw: string) {
   const d = raw.replace(/\D/g, '')
-  if (d.length === 10) return `7${d}`
   if (d.length === 11 && d.startsWith('8')) return `7${d.slice(1)}`
+  // 10 digits without country code only — never pad incomplete "+7 …" (10 digits starting with 7)
+  if (d.length === 10 && !d.startsWith('7') && !d.startsWith('8')) return `7${d}`
   return d
 }
 

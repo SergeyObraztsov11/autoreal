@@ -16,7 +16,7 @@ useSeoMeta({
     <PageHero label="Автотехцентр">
       <template #title>
         Услуги <b>автотехцентра</b> —<br class="hidden md:block" />
-        от ТО до замены масла в АКПП.
+        от ТО до замены масла в АКПП
       </template>
       <template #lead>
         Слесарные работы, диагностика, сигнализации, шумоизоляция.
@@ -34,11 +34,11 @@ useSeoMeta({
       </template>
     </PageHero>
 
-    <div class="g-container py-12 md:py-20">
+    <div class="g-container py-14 md:py-20">
       <LocationMapSection :location="location" />
     </div>
 
-    <div class="g-container pb-12 md:pb-20">
+    <div class="g-container pb-14 md:pb-24">
       <ServiceCatalog :items="items" :phone="phones.service" cta-label="Запись" />
     </div>
 

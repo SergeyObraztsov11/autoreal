@@ -6,7 +6,7 @@ const year = new Date().getFullYear()
 
 <template>
   <footer class="border-t border-white/10 bg-ink text-white">
-    <div class="g-container grid gap-10 py-12 sm:grid-cols-2 md:py-14 lg:grid-cols-4">
+    <div class="g-container grid gap-10 py-14 sm:grid-cols-2 md:py-16 lg:grid-cols-4">
       <div>
         <p class="g-kicker flex h-8 items-end text-yellow">{{ brand.name }}</p>
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/80">

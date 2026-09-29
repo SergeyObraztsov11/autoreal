@@ -19,47 +19,41 @@ const items = [
   },
   {
     icon: 'lucide:clock',
-    title: 'Режим работы',
+    title: 'Режим',
     text: `${hours.weekdays}. ${hours.weekend}`,
   },
 ]
 </script>
 
 <template>
-  <section class="g-cut-top-l relative overflow-hidden bg-yellow">
-    <span
-      class="g-tri-br absolute bottom-0 right-0 hidden h-40 w-64 bg-ink lg:block"
-      aria-hidden="true"
-    />
-
-    <div class="relative mx-auto max-w-7xl px-4 pb-10 pt-16 md:px-6 md:py-24">
-      <div class="mb-6 max-w-2xl md:mb-12">
-        <h2 class="g-h on-yellow text-3xl leading-[1.12] md:text-5xl md:leading-[1.08] lg:text-6xl">
+  <section class="relative overflow-hidden bg-canvas">
+    <div class="g-container g-section">
+      <div class="mb-5 max-w-2xl md:mb-6 lg:mb-8">
+        <p class="g-label">Почему мы</p>
+        <h2 class="g-h g-h2">
           Работаем по записи,
           <br class="hidden md:block" />
-          с <b>гарантией</b> на работы и детали.
+          с <b>гарантией</b> на работы и детали
         </h2>
       </div>
 
-      <ul class="grid gap-3 sm:grid-cols-2 sm:gap-4 md:gap-5 lg:grid-cols-4">
-        <li
-          v-for="it in items"
-          :key="it.title"
-          class="g-card flex h-full flex-col p-3.5 sm:p-6"
-        >
-          <div class="flex items-center gap-3">
-            <span class="g-tile h-9 w-9 shrink-0 sm:h-11 sm:w-11">
-              <Icon :name="it.icon" class="size-4 sm:size-5" />
-            </span>
-            <h3 class="g-display text-sm font-bold leading-snug sm:text-lg">
-              {{ it.title }}
-            </h3>
-          </div>
-          <p class="mt-3 text-sm leading-snug text-muted sm:leading-relaxed">
-            {{ it.text }}
-          </p>
-        </li>
-      </ul>
+      <SnapSwiper :items="items" label="Почему мы">
+        <template #default="{ item }">
+          <article class="g-card flex h-full w-full flex-col p-5 md:p-6">
+            <div class="flex items-center gap-3.5">
+              <span class="g-tile h-11 w-11 shrink-0">
+                <Icon :name="item.icon" class="size-5" />
+              </span>
+              <h3 class="g-display text-lg font-bold leading-snug">
+                {{ item.title }}
+              </h3>
+            </div>
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-muted">
+              {{ item.text }}
+            </p>
+          </article>
+        </template>
+      </SnapSwiper>
     </div>
   </section>
 </template>

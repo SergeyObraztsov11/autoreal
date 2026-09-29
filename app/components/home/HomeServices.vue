@@ -19,26 +19,15 @@ const services = list
 </script>
 
 <template>
-  <section
-    id="services"
-    class="g-cut-top-r relative scroll-mt-20 overflow-hidden bg-ink text-white"
-  >
-    <div
-      class="g-chevron pointer-events-none absolute -left-40 top-0 h-full w-[46rem] bg-ink-2"
-      aria-hidden="true"
-    />
-    <span
-      class="g-tri-tr absolute right-0 top-0 hidden h-24 w-24 bg-yellow lg:block"
-      aria-hidden="true"
-    />
-
-    <div class="relative mx-auto max-w-7xl px-4 pb-10 pt-16 md:px-6 md:py-28">
-      <div class="mb-6 grid gap-6 md:mb-12 md:gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+  <section id="services" class="relative scroll-mt-20 overflow-hidden bg-ink text-white">
+    <div class="g-container g-section">
+      <div class="mb-5 grid gap-5 md:mb-6 lg:mb-8 lg:grid-cols-[1fr_auto] lg:items-end">
         <div class="max-w-2xl">
-          <h2 class="g-h on-dark text-3xl leading-[1.12] md:text-5xl md:leading-[1.08] lg:text-6xl">
-            Работы автотехцентра —
+          <p class="g-label text-yellow">Автотехцентр</p>
+          <h2 class="g-h g-h2 on-dark">
+            Работы —
             <br class="hidden md:block" />
-            от планового ТО до <b>электрики</b>.
+            от планового ТО до <b>электрики</b>
           </h2>
         </div>
         <div class="hidden lg:block">
@@ -46,28 +35,33 @@ const services = list
         </div>
       </div>
 
-      <ul class="grid grid-cols-2 gap-2.5 sm:gap-5 lg:grid-cols-4">
-        <li v-for="item in services" :key="item.slug">
+      <SnapSwiper
+        :items="services"
+        label="Услуги автотехцентра"
+        tone="dark"
+        :item-key="item => item.slug"
+      >
+        <template #default="{ item }">
           <NuxtLink
             :to="`/service#${item.slug}`"
-            class="group flex h-full flex-col border-2 border-ink bg-white p-3.5 text-ink shadow-hard-yellow-md transition-transform hover:-translate-y-1 sm:p-6 sm:shadow-hard-yellow"
+            class="group g-radius flex h-full w-full flex-col border-2 border-ink bg-white p-5 text-ink shadow-hard-yellow transition-transform active:translate-y-px md:hover:-translate-y-1"
           >
-            <div class="flex items-center gap-3">
-              <span class="g-tile g-tile-yellow h-9 w-9 shrink-0 sm:h-11 sm:w-11">
-                <Icon :name="item.icon" class="size-4 sm:size-5" />
+            <div class="flex items-center gap-3.5">
+              <span class="g-tile g-tile-yellow h-11 w-11 shrink-0">
+                <Icon :name="item.icon" class="size-5" />
               </span>
-              <h3 class="g-display text-sm font-bold leading-snug sm:text-lg">
+              <h3 class="g-display text-lg font-bold leading-snug">
                 {{ item.s.title }}
               </h3>
             </div>
-            <p class="mt-3 hidden text-sm text-muted sm:block">
+            <p class="mt-3 text-sm leading-relaxed text-muted">
               {{ item.s.short }}
             </p>
           </NuxtLink>
-        </li>
-      </ul>
+        </template>
+      </SnapSwiper>
 
-      <div class="mt-6 lg:hidden">
+      <div class="mt-8 lg:hidden">
         <NavButton to="/service" variant="dark" class="w-full">Все услуги</NavButton>
       </div>
     </div>
