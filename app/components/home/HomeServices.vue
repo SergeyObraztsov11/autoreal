@@ -1,27 +1,40 @@
 <script setup lang="ts">
 import { getService } from '~/data/services'
 import type { Service } from '~/data/services'
+import { media } from '~/data/media'
 
-const list: { slug: string; icon: string }[] = [
-  { slug: 'maintenance', icon: 'lucide:wrench' },
-  { slug: 'suspension', icon: 'lucide:car' },
-  { slug: 'electrical', icon: 'lucide:zap' },
-  { slug: 'alarm', icon: 'lucide:shield' },
-  { slug: 'soundproofing', icon: 'lucide:volume-x' },
-  { slug: 'diagnostics', icon: 'lucide:gauge' },
-  { slug: 'tire-service', icon: 'lucide:circle-dot' },
-  { slug: 'ac-service', icon: 'lucide:snowflake' },
+const list: { slug: keyof typeof media.services }[] = [
+  { slug: 'maintenance' },
+  { slug: 'suspension' },
+  { slug: 'electrical' },
+  { slug: 'alarm' },
+  { slug: 'soundproofing' },
+  { slug: 'diagnostics' },
+  { slug: 'tire-service' },
+  { slug: 'ac-service' },
 ]
 
 const services = list
-  .map(i => ({ ...i, s: getService(i.slug) }))
-  .filter((i): i is { slug: string; icon: string; s: Service } => Boolean(i.s))
+  .map((i, index) => ({
+    ...i,
+    index: index + 1,
+    s: getService(i.slug),
+    image: media.services[i.slug],
+  }))
+  .filter(
+    (i): i is {
+      slug: keyof typeof media.services
+      index: number
+      s: Service
+      image: string
+    } => Boolean(i.s),
+  )
 </script>
 
 <template>
-  <section id="services" class="relative scroll-mt-20 overflow-hidden bg-ink text-white">
+  <section id="services" class="relative scroll-mt-20 bg-ink text-white">
     <div class="g-container g-section">
-      <div class="mb-5 grid gap-5 md:mb-6 lg:mb-8 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div class="mb-6 grid gap-5 md:mb-8 lg:mb-10 lg:grid-cols-[1fr_auto] lg:items-end">
         <div class="max-w-2xl">
           <p class="g-label text-yellow">Автотехцентр</p>
           <h2 class="g-h g-h2 on-dark">
@@ -40,23 +53,46 @@ const services = list
         label="Услуги автотехцентра"
         tone="dark"
         :item-key="item => item.slug"
+        grid-class="lg:grid-cols-4 lg:gap-x-5 lg:gap-y-16"
+        slide-class="w-[min(18.5rem,calc(100vw-3rem))] pt-2 md:w-[20rem]"
       >
         <template #default="{ item }">
           <NuxtLink
             :to="`/service#${item.slug}`"
-            class="group g-radius flex h-full w-full flex-col border-2 border-ink bg-white p-5 text-ink shadow-hard-yellow transition-transform active:translate-y-px md:hover:-translate-y-1"
+            class="group relative flex h-full w-full flex-col pt-20 text-ink md:pt-24"
           >
-            <div class="flex items-center gap-3.5">
-              <span class="g-tile g-tile-yellow h-11 w-11 shrink-0">
-                <Icon :name="item.icon" class="size-5" />
-              </span>
-              <h3 class="g-display text-lg font-bold leading-snug">
+            <img
+              :src="item.image"
+              alt=""
+              class="pointer-events-none absolute left-1/2 top-0 z-10 h-40 w-auto max-w-[92%] -translate-x-1/2 object-contain drop-shadow-[4px_8px_0_rgb(10_10_10/22%)] transition-transform duration-300 md:h-44 md:group-hover:-translate-y-1.5"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <div
+              class="g-card relative flex h-full min-h-[13.5rem] flex-col px-5 pb-5 pt-[4.25rem] transition-transform active:translate-y-px md:min-h-[14.5rem] md:px-6 md:pb-6 md:pt-[4.75rem] md:group-hover:-translate-y-1"
+            >
+              <h3 class="g-display text-[1.4rem] font-bold leading-[1.1] text-ink md:text-[1.65rem]">
                 {{ item.s.title }}
               </h3>
+
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink/90">
+                {{ item.s.short }}
+              </p>
+
+              <div class="mt-auto flex items-center justify-between gap-3 border-t-2 border-line pt-4">
+                <span class="g-kicker text-muted">
+                  {{ String(item.index).padStart(2, '0') }}
+                </span>
+                <span class="inline-flex items-center gap-1.5 text-sm font-bold text-ink">
+                  Подробнее
+                  <Icon
+                    name="lucide:arrow-right"
+                    class="size-4 transition-transform duration-200 md:group-hover:translate-x-0.5"
+                  />
+                </span>
+              </div>
             </div>
-            <p class="mt-3 text-sm leading-relaxed text-muted">
-              {{ item.s.short }}
-            </p>
           </NuxtLink>
         </template>
       </SnapSwiper>

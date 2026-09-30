@@ -8,7 +8,7 @@ const props = withDefaults(
 
 const rootClass = computed(() => {
   if (props.variant === 'boxed') {
-    return 'g-hard g-radius flex items-center gap-3.5 border-2 border-ink bg-white px-4 py-3.5 text-[0.95rem] font-semibold leading-snug'
+    return 'flex items-center gap-3.5 py-1 text-[0.95rem] font-semibold leading-snug'
   }
   if (props.variant === 'plain') {
     return 'flex items-center gap-3 text-[15px] font-semibold md:text-sm'

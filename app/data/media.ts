@@ -10,6 +10,16 @@ export const media = {
     store: '/stock/karzina.png',
     garage: '/stock/garaz.png',
   },
+  services: {
+    maintenance: '/stock/services/maintenance.png',
+    suspension: '/stock/services/suspension.png',
+    electrical: '/stock/services/electrical.png',
+    alarm: '/stock/services/alarm.png',
+    soundproofing: '/stock/services/soundproofing.png',
+    diagnostics: '/stock/services/diagnostics.png',
+    'tire-service': '/stock/services/tire-service.png',
+    'ac-service': '/stock/services/ac-service.png',
+  },
   /** Certificates & thank-you letters (from legacy STO site) */
   letters: [
     '/media/letters/thanks-01.jpg',

@@ -235,6 +235,12 @@ html {
   box-shadow: var(--g-shadow-yellow-press);
 }
 
+/* No hard extrusion on ink bands — black/yellow plates vanish or look uneven */
+.bg-ink .g-btn,
+.bg-ink .g-btn:hover {
+  box-shadow: none;
+}
+
 /* Icon tile — black block with yellow glyph */
 .g-tile {
   display: inline-flex;

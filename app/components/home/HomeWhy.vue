@@ -39,16 +39,18 @@ const items = [
 
       <SnapSwiper :items="items" label="Почему мы">
         <template #default="{ item }">
-          <article class="g-card flex h-full w-full flex-col p-5 md:p-6">
+          <article
+            class="g-radius flex h-full w-full flex-col border-2 border-ink bg-white p-5 md:p-6"
+          >
             <div class="flex items-center gap-3.5">
               <span class="g-tile h-11 w-11 shrink-0">
                 <Icon :name="item.icon" class="size-5" />
               </span>
-              <h3 class="g-display text-lg font-bold leading-snug">
+              <h3 class="g-display text-[1.4rem] font-bold leading-[1.1] text-ink md:text-[1.65rem]">
                 {{ item.title }}
               </h3>
             </div>
-            <p class="mt-4 text-[0.95rem] leading-relaxed text-muted">
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-ink/90">
               {{ item.text }}
             </p>
           </article>
