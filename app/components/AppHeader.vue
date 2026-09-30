@@ -3,10 +3,14 @@ import { brand, hours, nav, phones } from '~/data/site'
 
 const route = useRoute()
 const menuOpen = useState('mobile-menu-open', () => false)
+const scrollLockCount = useState('scroll-lock-count', () => 0)
 useScrollLock(menuOpen)
 
 const headerEl = ref<HTMLElement>()
 const headerHeight = ref(0)
+
+/** Sticky breaks under overflow:hidden — pin header for menu and modals. */
+const pinHeader = computed(() => menuOpen.value || scrollLockCount.value > 0)
 
 watch(
   () => route.fullPath,
@@ -15,10 +19,13 @@ watch(
   },
 )
 
-function toggleMenu() {
-  if (!menuOpen.value && headerEl.value) {
+watch(pinHeader, pinned => {
+  if (pinned && headerEl.value) {
     headerHeight.value = headerEl.value.offsetHeight
   }
+})
+
+function toggleMenu() {
   menuOpen.value = !menuOpen.value
 }
 
@@ -32,14 +39,14 @@ function isActive(to: string) {
   <!--
     Sticky breaks when scroll-lock sets overflow:hidden on html/body —
     header jumps to document top and vanishes if the page was scrolled.
-    While the menu is open, pin the header with fixed and keep a spacer
-    of the same height so the page does not shift.
+    While menu or a modal locks scroll, pin the header with fixed and keep
+    a spacer of the same height so the page does not shift.
   -->
-  <div v-if="menuOpen" aria-hidden="true" :style="{ height: `${headerHeight}px` }" />
+  <div v-if="pinHeader" aria-hidden="true" :style="{ height: `${headerHeight}px` }" />
   <header
     ref="headerEl"
     class="border-b-2 border-ink bg-white"
-    :class="menuOpen ? 'fixed inset-x-0 top-0 z-[60]' : 'sticky top-0 z-50'"
+    :class="pinHeader ? 'fixed inset-x-0 top-0 z-[60]' : 'sticky top-0 z-50'"
   >
     <div class="g-container flex items-center justify-between gap-4 py-3 md:gap-6">
       <NuxtLink to="/" class="min-w-0 shrink" @click="menuOpen = false">
