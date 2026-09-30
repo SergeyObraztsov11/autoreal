@@ -197,10 +197,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
                 class="rounded p-1 transition-transform hover:scale-110"
                 :aria-label="`${n} из 5`"
                 :aria-pressed="rating === n"
-                @click="
-                  rating = n
-                  clearFieldError('rating')
-                "
+                @click="rating = n; clearFieldError('rating')"
               >
                 <svg
                   viewBox="0 0 24 24"
