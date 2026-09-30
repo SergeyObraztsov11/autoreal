@@ -3,18 +3,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev --host 127.0.0.1 --port 3000",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "start": "node .output/server/index.mjs",
+    "build": "nuxt build",
+    "deploy": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy.ps1",
     "postinstall": "nuxt prepare",
-    "lint:check": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "check": "npm run lint:check && npm run format:check",
-    "fix": "npm run lint:fix && npm run format:fix"
+    "check": "eslint . && prettier --check .",
+    "fix": "eslint . --fix && prettier --write ."
   },
   "dependencies": {
     "@nuxt/fonts": "^0.14.0",

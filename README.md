@@ -1,63 +1,210 @@
-# Autoreal
+# Автореал
 
-Nuxt 4 site for Автореал (Volgodonsk): SSR + Nitro API for callback requests and site reviews.
+Сайт автотехцентра и магазина автозапчастей «Автореал» (Волгодонск).
 
-## Setup
+Стек: **Nuxt 4** (SSR) + **Nitro API** — формы заявок и отзывов, уведомления в Telegram, данные в JSON-файлах на диске.
+
+Сейчас в проде: [http://170.168.112.201](http://170.168.112.201)  
+(домен и HTTPS можно подключить позже)
+
+---
+
+## Содержание
+
+- [Требования](#требования)
+- [Быстрый старт (локально)](#быстрый-старт-локально)
+- [Переменные окружения](#переменные-окружения)
+- [Скрипты npm](#скрипты-npm)
+- [Страницы сайта](#страницы-сайта)
+- [Деплой на VPS](#деплой-на-vps)
+- [Сервер: что где лежит](#сервер-что-где-лежит)
+- [Важно](#важно)
+- [Документация](#документация)
+
+---
+
+## Требования
+
+- Node.js **22+** (локально и на сервере)
+- npm
+- Для деплоя с Windows: OpenSSH (`ssh`, `scp`) и ключ `~/.ssh/autoreal_deploy`
+
+---
+
+## Быстрый старт (локально)
 
 ```bash
 npm install
-```
-
-Copy env template and fill values (Telegram is optional — forms work without it):
-
-```bash
 cp .env.example .env
 ```
 
-## Development
+Заполни в `.env` Telegram-токен и chat id (можно оставить пустыми — формы всё равно работают).
 
 ```bash
 npm run dev
 ```
 
-App: `http://127.0.0.1:3000`
+Сайт: [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
-## Production
+---
 
-Do **not** use `nuxt generate` for this project — forms and Telegram need a running Node server.
+## Переменные окружения
+
+Файл `.env` **не коммитится**. Образец — `.env.example`.
+
+| Переменная | Назначение | По умолчанию |
+|---|---|---|
+| `NUXT_LOG_LEVEL` | Уровень логов: `silent` / `error` / `warn` / `info` / `debug` | `info` |
+| `NUXT_LOG_RETENTION_DAYS` | Сколько дней хранить файлы логов | `14` |
+| `NUXT_RATE_LIMIT_MAX` | Макс. заявок/отзывов с одного IP за окно | `5` |
+| `NUXT_RATE_LIMIT_WINDOW_MINUTES` | Окно rate limit (минуты) | `15` |
+| `NUXT_APP_TIMEZONE` | Часовой пояс (IANA) | `Europe/Moscow` |
+| `NUXT_TELEGRAM_BOT_TOKEN` | Токен бота (@BotFather) | пусто |
+| `NUXT_TELEGRAM_CHAT_ID` | Chat id (несколько через запятую) | пусто |
+
+Если Telegram не задан — сайт работает, уведомления просто не уходят.
+
+На сервере `.env` лежит в `/var/www/autoreal/.env`. После смены токена:
 
 ```bash
+pm2 restart autoreal
+```
+
+---
+
+## Скрипты npm
+
+| Команда | Что делает |
+|---|---|
+| `npm run dev` | Локальная разработка |
+| `npm run build` | Сборка продакшена в `.output/` |
+| `npm run deploy` | Сборка + заливка на VPS + перезапуск PM2 (Windows) |
+| `npm run check` | ESLint + Prettier (проверка) |
+| `npm run fix` | ESLint + Prettier (автоисправление) |
+
+Статический `nuxt generate` для этого проекта не подходит — нужны серверные API и запись на диск.
+
+На сервере сайт поднимает **PM2** (`ecosystem.config.cjs` → `.output/server/index.mjs`), не `npm start`.
+
+---
+
+## Страницы сайта
+
+| Путь | Описание |
+|---|---|
+| `/` | Главная |
+| `/service` | Автотехцентр, каталог услуг |
+| `/store` | Магазин |
+| `/about` | О компании, отзывы, адреса, VK |
+| `/privacy` | Политика персональных данных |
+
+Редиректы: `/services` → `/service`, `/parts` → `/store`, `/contacts` → `/about`.
+
+API:
+
+- `POST /api/request` — заявка на звонок → JSON + Telegram  
+- `POST /api/review` — отзыв с сайта → JSON + Telegram  
+
+Данные пишутся в `data/` (в git не попадают):
+
+- `data/requests.json` — заявки  
+- `data/site-reviews.json` — отзывы  
+
+Логи: папка `logs/`.
+
+---
+
+## Деплой на VPS
+
+Сборка на слабом VPS (1 GB RAM) часто падает. Поэтому билд делается **на своём компьютере**, на сервер уезжает готовый `.output`.
+
+### Обычное обновление сайта
+
+1. Внеси правки локально  
+2. При необходимости закоммить и запушь в GitHub  
+3. В PowerShell из корня проекта:
+
+```powershell
+npm run deploy
+```
+
+Скрипт (`scripts/deploy.ps1`):
+
+1. `npm run build`  
+2. заливает `.output` по SSH на сервер  
+3. ставит зависимости в `.output/server`  
+4. делает `pm2 restart autoreal`  
+
+Нужен ключ: `C:\Users\Sergey\.ssh\autoreal_deploy`  
+(уже добавлен на сервер в `authorized_keys`).
+
+Проверка входа по ключу:
+
+```powershell
+ssh -i $env:USERPROFILE\.ssh\autoreal_deploy root@170.168.112.201
+```
+
+Опциональные переменные для скрипта:
+
+- `AUTOREAL_DEPLOY_HOST` (по умолчанию `170.168.112.201`)  
+- `AUTOREAL_DEPLOY_USER` (по умолчанию `root`)  
+- `AUTOREAL_DEPLOY_KEY` (путь к приватному ключу)  
+
+### Ручной деплой (если скрипт недоступен)
+
+```powershell
 npm run build
-npm run start
+scp -i $env:USERPROFILE\.ssh\autoreal_deploy -r .output root@170.168.112.201:/var/www/autoreal/
+ssh -i $env:USERPROFILE\.ssh\autoreal_deploy root@170.168.112.201 "cd /var/www/autoreal/.output/server && npm install --omit=dev && cd /var/www/autoreal && pm2 restart autoreal"
 ```
 
-`npm start` runs `node .output/server/index.mjs` (default port `3000`, or set `PORT` / `HOST`).
+---
 
-### Required on the server
+## Сервер: что где лежит
 
-| Need                    | Why                                                                   |
-| ----------------------- | --------------------------------------------------------------------- |
-| Writable `data/`        | `requests.json`, `site-reviews.json` (created at runtime; gitignored) |
-| Writable `logs/`        | App logs + retention plugin                                           |
-| Env from `.env.example` | Logging, rate limit, timezone, Telegram                               |
+| Путь | Назначение |
+|---|---|
+| `/var/www/autoreal` | Код проекта |
+| `/var/www/autoreal/.output` | Прод-сборка |
+| `/var/www/autoreal/.env` | Секреты и настройки |
+| `/var/www/autoreal/ecosystem.config.cjs` | Конфиг PM2 |
+| `/var/www/autoreal/data/` | Заявки и отзывы |
+| `/var/www/autoreal/logs/` | Логи приложения |
 
-Important env keys:
+Стек на VPS:
 
-- `NUXT_TELEGRAM_BOT_TOKEN` / `NUXT_TELEGRAM_CHAT_ID` — notify on new callbacks and reviews
-- `NUXT_LOG_LEVEL`, `NUXT_LOG_RETENTION_DAYS`
-- `NUXT_RATE_LIMIT_MAX`, `NUXT_RATE_LIMIT_WINDOW_MINUTES`
-- `NUXT_APP_TIMEZONE` (default `Europe/Moscow`)
+- **Node.js** — приложение  
+- **PM2** — держит процесс и поднимает после reboot  
+- **Nginx** — порт 80 → прокси на `127.0.0.1:3000` (без `:3000` в URL)  
 
-Never commit `.env`.
-
-## Lint / format
+Полезные команды на сервере:
 
 ```bash
-npm run check
-npm run fix
+pm2 status
+pm2 logs autoreal
+pm2 restart autoreal
+systemctl status nginx
 ```
 
-## Docs
+Сеть VPS (актуально после смены IP в панели RuVDS):
 
-- [Nuxt deployment](https://nuxt.com/docs/getting-started/deployment)
-- [docs/design.md](docs/design.md) — UI system
+- IP: `170.168.112.201/24`  
+- Шлюз: `170.168.112.1`  
+- Netplan: `/etc/netplan/50-cloud-init.yaml`  
+
+---
+
+## Важно
+
+- `.env`, `data/*.json`, `logs/` — не коммитить  
+- После смены Telegram-токена на сервере — `pm2 restart autoreal`  
+- Если в панели RuVDS сменился публичный IP — обнови netplan, DNS (когда будет домен) и `AUTOREAL_DEPLOY_HOST` / скрипт деплоя  
+- Отзывы с формы сохраняются как `pending` и уходят в Telegram; на витрину сайта сами не попадают (там отдельные данные)  
+
+---
+
+## Документация
+
+- [docs/design.md](docs/design.md) — дизайн-система  
+- [docs/services-catalog.md](docs/services-catalog.md) — каталог услуг  
+- [Nuxt: deployment](https://nuxt.com/docs/getting-started/deployment)  
