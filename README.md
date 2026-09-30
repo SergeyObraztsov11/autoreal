@@ -18,6 +18,7 @@
 - [Страницы сайта](#страницы-сайта)
 - [Деплой на VPS](#деплой-на-vps)
 - [Сервер: что где лежит](#сервер-что-где-лежит)
+- [Telegram на VPS](#telegram-на-vps)
 - [Важно](#важно)
 - [Документация](#документация)
 
@@ -64,10 +65,21 @@ npm run dev
 
 Если Telegram не задан — сайт работает, уведомления просто не уходят.
 
-На сервере `.env` лежит в `/var/www/autoreal/.env`. После смены токена:
+На сервере `.env` лежит в `/var/www/autoreal/.env`.
+
+PM2 **не** читает `.env` через `env_file` (в разных версиях это ненадёжно). Файл `ecosystem.config.cjs` сам подгружает ключи из `.env` в `env` процесса. Поэтому после правки `.env` или самого `ecosystem.config.cjs` нужно не просто `restart`, а перезапуск из конфига:
 
 ```bash
-pm2 restart autoreal
+cd /var/www/autoreal
+pm2 delete autoreal
+pm2 start ecosystem.config.cjs
+pm2 save
+```
+
+Проверка, что токен попал в процесс:
+
+```bash
+pm2 env 0 | grep NUXT_TELEGRAM
 ```
 
 ---
@@ -194,12 +206,69 @@ systemctl status nginx
 
 ---
 
+## Telegram на VPS
+
+Заявки сохраняются в `data/requests.json` даже если Telegram недоступен. Если в логах есть `callback request accepted`, а в чат ничего не пришло — смотри уведомления и сеть.
+
+### 1. Переменные в PM2
+
+Симптом: заявка принята, в error-логе тихо или `telegram notifier skipped`.
+
+Причина: в процессе PM2 нет `NUXT_TELEGRAM_BOT_TOKEN` / `NUXT_TELEGRAM_CHAT_ID`.
+
+Что сделать: убедиться, что `.env` заполнен, перезапустить через `ecosystem.config.cjs` (команды выше), проверить `pm2 env 0 | grep NUXT_TELEGRAM`.
+
+### 2. Сеть до api.telegram.org (RuVDS)
+
+Симптом в логах:
+
+```text
+callback notification failed … The operation was aborted due to timeout
+```
+
+На части российских VPS DNS отдаёт IP Telegram, до которого **TCP 443 не проходит** (ping при этом может отвечать). Рабочий обход — зафиксировать доступный DC в `/etc/hosts` и предпочесть IPv4:
+
+```bash
+# Проверка: есть ли HTTPS до API
+curl -4 -v --connect-timeout 5 --max-time 10 https://api.telegram.org/
+
+# Если таймаут — прописать рабочий IP (актуальный на момент настройки: 149.154.167.220)
+echo '149.154.167.220 api.telegram.org' >> /etc/hosts
+
+# Предпочитать IPv4 (на всякий случай)
+echo 'precedence :ffff:0:0/96  100' >> /etc/gai.conf
+
+# Повторная проверка
+getent hosts api.telegram.org
+curl -4 -sS -o /dev/null -w "%{http_code}\n" --connect-timeout 5 https://api.telegram.org/
+```
+
+Тест заявки с сервера:
+
+```bash
+curl -sS -X POST http://127.0.0.1:3000/api/request \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Test","phone":"+79990001122","consent":true,"title":"Telegram check"}'
+pm2 logs autoreal --lines 30 --nostream
+```
+
+Успех: HTTP 200 и **нет** новой строки `callback notification failed` в error-логе; сообщение появляется в Telegram.
+
+Если IP в hosts снова перестанет отвечать — подбери другой DC тем же способом (`curl --resolve api.telegram.org:443:<IP> https://api.telegram.org/`) и обнови строку в `/etc/hosts`.
+
+### 3. Токен светился в логах / чате
+
+Перевыпусти токен у [@BotFather](https://t.me/BotFather) (`/revoke` или новый бот), обнови `NUXT_TELEGRAM_BOT_TOKEN` в `/var/www/autoreal/.env`, перезапусти PM2 из `ecosystem.config.cjs`.
+
+---
+
 ## Важно
 
 - `.env`, `data/*.json`, `logs/` — не коммитить  
-- После смены Telegram-токена на сервере — `pm2 restart autoreal`  
+- После смены Telegram-токена или `.env` на сервере — перезапуск через `ecosystem.config.cjs` (не полагаться только на `pm2 restart`, если менялся способ загрузки env)  
 - Если в панели RuVDS сменился публичный IP — обнови netplan, DNS (когда будет домен) и `AUTOREAL_DEPLOY_HOST` / скрипт деплоя  
 - Отзывы с формы сохраняются как `pending` и уходят в Telegram; на витрину сайта сами не попадают (там отдельные данные)  
+- На RuVDS для Telegram может понадобиться запись `api.telegram.org` в `/etc/hosts` — см. [Telegram на VPS](#telegram-на-vps)  
 
 ---
 

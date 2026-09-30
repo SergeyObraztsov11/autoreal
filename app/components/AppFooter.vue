@@ -47,5 +47,6 @@ const year = new Date().getFullYear()
         </p>
       </div>
     </div>
+
   </footer>
 </template>
