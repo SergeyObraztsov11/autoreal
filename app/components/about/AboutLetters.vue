@@ -183,7 +183,7 @@ onBeforeUnmount(() => {
         <template #default="{ item, index }">
           <button
             type="button"
-            class="g-card block w-full overflow-hidden p-1.5 text-left transition-transform active:translate-y-px"
+            class="g-card block w-full overflow-hidden p-1.5 text-left shadow-hard transition-transform active:translate-y-px"
             :aria-label="`Открыть документ ${item.id}`"
             @click="openLightbox(index)"
           >
@@ -231,7 +231,7 @@ onBeforeUnmount(() => {
           <img
             :src="activeItem.src"
             alt=""
-            class="pointer-events-none max-h-full max-w-full object-contain shadow-hard"
+            class="pointer-events-none max-h-full max-w-full object-contain"
             :class="dragging ? 'transition-none' : 'transition-transform duration-200 ease-out'"
             :style="{ transform: `translateX(${dragX}px)` }"
             draggable="false"

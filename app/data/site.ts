@@ -123,6 +123,7 @@ export const nav = [
 export const vkGroup = {
   id: 70389671,
   href: 'https://vk.ru/club.autoreal',
+  title: 'АВТОРЕАЛ: автозапчасти и сервис',
 } as const
 
 export const social = [

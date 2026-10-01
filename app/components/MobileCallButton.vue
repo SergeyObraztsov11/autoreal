@@ -26,7 +26,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
           : 'pointer-events-none translate-y-6 opacity-0'
       "
       style="bottom: calc(1.25rem + env(safe-area-inset-bottom))"
-      aria-label="Заказать обратный звонок"
+      aria-label="Заказать звонок"
       @click="show()"
     >
       <Icon name="mdi:phone" class="size-7" />

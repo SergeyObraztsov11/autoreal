@@ -152,14 +152,13 @@ html {
   box-shadow: var(--g-shadow);
 }
 
-/* Card: white, black frame, hard shadow */
+/* Card: white, black frame (no extrusion — reserve hard shadow for controls) */
 .g-card {
   border-width: 2px;
   border-style: solid;
   border-color: var(--g-ink);
   border-radius: var(--g-radius);
   background: #fff;
-  box-shadow: var(--g-shadow);
 }
 .g-card-accent {
   border-top-width: 4px;

@@ -26,6 +26,6 @@ function onClick(e: MouseEvent) {
 <template>
   <AppButton v-bind="attrs" :variant="variant" @click="onClick">
     <Icon name="lucide:phone-call" class="size-4" />
-    Обратный звонок
+    Заказать звонок
   </AppButton>
 </template>

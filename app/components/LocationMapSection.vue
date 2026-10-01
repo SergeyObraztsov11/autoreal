@@ -24,7 +24,7 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
   <section>
     <!-- Mobile -->
     <div
-      class="overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white shadow-hard lg:hidden"
+      class="overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white lg:hidden"
     >
       <!-- 1. Yandex Maps -->
       <div class="px-4 py-3">
@@ -85,7 +85,7 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
     <!-- Desktop -->
     <div class="hidden lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
       <div
-        class="self-start rounded-[var(--g-radius)] border-2 border-ink bg-white p-7 shadow-hard"
+        class="self-start rounded-[var(--g-radius)] border-2 border-ink bg-white p-7"
       >
         <div class="flex items-center gap-4">
           <span class="g-tile h-12 w-12 shrink-0">
@@ -128,7 +128,7 @@ const src = computed(() => yandexOrgWidgetUrl(props.location))
       </div>
 
       <div
-        class="flex flex-col overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white shadow-hard"
+        class="flex flex-col overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white"
       >
         <div class="border-b-2 border-ink px-5 py-3 text-sm">
           <a

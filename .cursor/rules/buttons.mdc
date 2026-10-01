@@ -10,7 +10,7 @@ Do not hand-roll repeated CTA labels/icons. Use the typed wrappers:
 
 | Component | When | Label | Icon |
 |---|---|---|---|
-| `CallbackButton` | Opens request modal | Обратный звонок | `phone-call` (start) |
+| `CallbackButton` | Opens request modal | Заказать звонок | `phone-call` (start) |
 | `CallButton` | `tel:` call | Позвонить | `phone` (start) |
 | `RouteButton` | Yandex directions | Маршрут | `navigation` (start) |
 | `NavButton` | In-app `to="..."` | slot text | `arrow-right` (end) |

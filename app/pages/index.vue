@@ -14,6 +14,8 @@ useSeoMeta({
     <HomeServices />
     <HomeAkpp />
     <HomeStore />
+    <HomeSteps />
+    <YandexReviewsSection />
     <HomeContacts />
     <HomeCta />
   </div>

@@ -16,7 +16,7 @@ import { vkGroup } from '~/data/site'
 
       <!-- Mobile -->
       <div
-        class="overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white shadow-hard lg:hidden"
+        class="overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white lg:hidden"
       >
         <div class="px-4 py-3">
           <a
@@ -31,7 +31,10 @@ import { vkGroup } from '~/data/site'
         </div>
 
         <div class="border-t-2 border-line px-5 py-5">
-          <p class="text-[13px] leading-relaxed text-muted">
+          <p class="g-display text-lg font-bold leading-snug text-ink">
+            {{ vkGroup.title }}
+          </p>
+          <p class="mt-2 text-[13px] leading-relaxed text-muted">
             Новости, акции, отзывы и примеры работ — в официальном сообществе «Автореал».
           </p>
         </div>
@@ -51,7 +54,7 @@ import { vkGroup } from '~/data/site'
       <!-- Desktop -->
       <div class="hidden lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
         <div
-          class="self-start rounded-[var(--g-radius)] border-2 border-ink bg-white p-7 shadow-hard"
+          class="self-start rounded-[var(--g-radius)] border-2 border-ink bg-white p-7"
         >
           <div class="flex items-center gap-4">
             <span class="g-tile h-12 w-12 shrink-0">
@@ -70,7 +73,7 @@ import { vkGroup } from '~/data/site'
         </div>
 
         <div
-          class="flex flex-col overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white shadow-hard"
+          class="flex flex-col overflow-hidden rounded-[var(--g-radius)] border-2 border-ink bg-white"
         >
           <div class="border-b-2 border-ink px-5 py-3 text-sm">
             <a

@@ -6,9 +6,9 @@ const props = withDefaults(
     /** Fixed ratio — controls height. Default 4/3 when framed. Empty = natural. */
     aspect?: string
     priority?: boolean
-    /** Hard shadow + ink border. Off = plain photo. */
+    /** Hard ink/yellow border. Off = plain photo. */
     framed?: boolean
-    /** On ink backgrounds, use yellow extrusion so the shadow stays visible. */
+    /** On ink backgrounds, use yellow border so the frame stays visible. */
     tone?: 'light' | 'dark'
   }>(),
   {
@@ -21,7 +21,6 @@ const props = withDefaults(
 )
 
 const frameBorder = computed(() => (props.tone === 'dark' ? 'border-yellow' : 'border-ink'))
-const frameShadow = computed(() => (props.tone === 'dark' ? 'shadow-hard-yellow' : 'shadow-hard'))
 </script>
 
 <template>
@@ -37,11 +36,11 @@ const frameShadow = computed(() => (props.tone === 'dark' ? 'shadow-hard-yellow'
       :fetchpriority="priority ? 'high' : undefined"
     />
 
-    <!-- Framed: one hard shadow (same as cards) -->
+    <!-- Framed photo: border only (extrusion reserved for controls) -->
     <div
       v-else
       class="relative overflow-hidden border-2 bg-canvas g-radius"
-      :class="[frameBorder, frameShadow]"
+      :class="frameBorder"
     >
       <img
         :src="src"

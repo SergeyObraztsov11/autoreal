@@ -1,4 +1,4 @@
-const MODAL_TITLE = 'Заказать обратный звонок'
+const MODAL_TITLE = 'Заказать звонок'
 
 export function useRequestModal() {
   const open = useState('request-modal-open', () => false)

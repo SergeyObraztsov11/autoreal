@@ -70,7 +70,7 @@ const services = list
             />
 
             <div
-              class="g-card relative flex h-full min-h-[13.5rem] flex-col px-5 pb-5 pt-[4.25rem] transition-transform active:translate-y-px md:min-h-[14.5rem] md:px-6 md:pb-6 md:pt-[4.75rem] md:group-hover:-translate-y-1"
+              class="g-card relative flex h-full min-h-[13.5rem] flex-col px-5 pb-5 pt-[4.25rem] shadow-hard transition-transform active:translate-y-px md:min-h-[14.5rem] md:px-6 md:pb-6 md:pt-[4.75rem] md:group-hover:-translate-y-1"
             >
               <h3 class="g-display text-[1.4rem] font-bold leading-[1.1] text-ink md:text-[1.65rem]">
                 {{ item.s.title }}
